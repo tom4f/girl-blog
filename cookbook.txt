@@ -1,0 +1,31 @@
+PS C:\privat\xampp\htdocs> npx create-next-app 87_girl-blog --use-npm
+Creating a new Next.js app in C:\privat\xampp\htdocs\87_girl-blog.
+
+Installing react, react-dom, and next using npm...
+
+
+added 235 packages, and audited 236 packages in 12s
+
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Success! Created 87_girl-blog at C:\privat\xampp\htdocs\87_girl-blog
+Inside that directory, you can run several commands:
+
+  npm run dev
+    Starts the development server.
+
+  npm run build
+    Builds the app for production.
+
+  npm start
+    Runs the built app in production mode.
+
+We suggest that you begin by typing:
+
+  cd 87_girl-blog
+  npm run dev
+
+PS C:\privat\xampp\htdocs> cd .\87_girl-blog\
+PS C:\privat\xampp\htdocs\87_girl-blog> 
