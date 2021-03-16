@@ -1,3 +1,4 @@
+// Link similar like React Router Dom
 import Link from 'next/link'
 import navStyles from '../styles/Nav.module.css'
 

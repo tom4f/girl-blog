@@ -29,3 +29,42 @@ We suggest that you begin by typing:
 
 PS C:\privat\xampp\htdocs> cd .\87_girl-blog\
 PS C:\privat\xampp\htdocs\87_girl-blog> 
+
+
+
+// git
+502  echo "# girl_blog" >> README.md
+  503  git init
+  504  git add README.md
+  505  git status
+  506  git commit -m "first commit"
+  507  git remote add origin https://github.com/tom4f/girl-blog.git
+  508  git status
+  511  git add .
+  512  git status
+  513  git commit -m "second commit"
+  515  git status
+// on github create new repository with name girl-blog
+  516  git push -u origin master
+
+// package.json
+build static website in /out dir
+     "build": "next build && next export",
+
+// install serve package:
+npm i -g serve
+// run serve to to run all inside /out folder
+serve -s out -p 8000
+
+
+
+// mysql
+
+CREATE TABLE `blog` (
+`id` SMALLINT NOT NULL AUTO_INCREMENT ,
+`title` TEXT NOT NULL ,
+`body` TEXT NOT NULL ,
+`image` VARCHAR( 100 ) NOT NULL ,
+`date` DATE NOT NULL ,
+PRIMARY KEY ( `id` )
+) TYPE = MYISAM ;

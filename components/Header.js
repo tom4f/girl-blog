@@ -4,11 +4,18 @@ const Header = () => {
   return (
     <div>
       <h1 className={headerStyles.title}>
-        <span>WebDev</span> News
+        <span>Lucy</span> Blog
       </h1>
       <p className={headerStyles.description}>
-        Keep up to date with the latest web dev news
+      Vše o kosmetice a vaření :-)
       </p>
+      <style jsx>
+        {`
+            h1 {
+              color: ${ false ? 'green' : 'red' };
+            }
+        `}
+      </style>
     </div>
   )
 }
