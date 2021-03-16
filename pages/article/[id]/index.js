@@ -7,6 +7,7 @@ import Image from 'next/image'
 const article = ({ article }) => {
   // const router = useRouter()
   // const { id } = router.query
+  console.log( article )
   const imagePath = article.image
   return (
     <>
@@ -25,13 +26,14 @@ const article = ({ article }) => {
   )
 }
 
-/*
+
 
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
 export const getServerSideProps = async (context) => {
-  const res = await fetch(`${server}/api/articles/${context.params.id}`)
+  const res = await fetch(`https://www.frymburk.com/rekreace/api/pdo_read_blog.php`)
 
-  const article = await res.json()
+  const articles = await res.json()
+  const article = articles.find( one => one.id == context.params.id  )
 
   return {
     props: {
@@ -40,9 +42,9 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-}*/
 
 
+/*
 // getStaticProps should return an object with 'props' 
 export const getStaticProps = async (context) => {
 
@@ -82,7 +84,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-
+*/
 
 
 export default article
