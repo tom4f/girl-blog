@@ -46,8 +46,9 @@ export const getServerSideProps = async (context) => {
 // getStaticProps should return an object with 'props' 
 export const getStaticProps = async (context) => {
 
-  //const res = await fetch(`http://localhost/lipnonet/blog.json`)
-  const res = await fetch(`http://localhost/lipnonet/rekreace/api/pdo_read_blog.php`)
+  // const res = await fetch(`http://localhost/lipnonet/blog.json`)
+  // const res = await fetch(`http://localhost/lipnonet/rekreace/api/pdo_read_blog.php`)
+  const res = await fetch(`https://www.frymburk.com/rekreace/api/pdo_read_blog.php`)
   const articles = await res.json()
   const article = articles.find( one => one.id == context.params.id  )
 
@@ -67,7 +68,8 @@ export const getStaticProps = async (context) => {
 //   ],
 export const getStaticPaths = async () => {
   //const res = await fetch(`http://localhost/lipnonet/blog.json`)
-  const res = await fetch(`http://localhost/lipnonet/rekreace/api/pdo_read_blog.php`)
+  //const res = await fetch(`http://localhost/lipnonet/rekreace/api/pdo_read_blog.php`)
+  const res = await fetch(`https://www.frymburk.com/rekreace/api/pdo_read_blog.php`)
   const articles = await res.json()
 
   const ids = articles.map((article) => article.id)
