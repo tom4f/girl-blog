@@ -12,7 +12,7 @@ export default function Home( { articles } ) {
 // getStaticProps = NextJS function: (Static Generation): Fetch data at build time.
 export const getStaticProps = async () => {
 
-  console.log( { server } )
+  //console.log( { server } )
 
   const res = await fetch(`${server}/api/pdo_read_blog.php`)
   const articles = await res.json()
