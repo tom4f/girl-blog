@@ -4,7 +4,7 @@ import ArticleList from '../components/ArticleList'
 export default function Home( { articles } ) {
   return (
     <div>
-      Vercel Test with getServerSideProps
+      Vercel Test with getServerSideProps + update package.json
       <ArticleList articles={articles} />
     </div>
   )
