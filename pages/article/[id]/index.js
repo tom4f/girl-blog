@@ -25,7 +25,7 @@ const article = ({ article }) => {
 }
 
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
 
   console.log( { server } )
 
@@ -58,7 +58,7 @@ export const getStaticProps = async (context) => {
     },
   }
 }
-*/
+
 
 // getStaticPaths = NextJS function : (Static Generation): Specify dynamic routes to pre-render pages based on data.
 // it means not only during build time
@@ -82,7 +82,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-
+*/
 
 
 export default article

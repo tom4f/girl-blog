@@ -4,14 +4,14 @@ import ArticleList from '../components/ArticleList'
 export default function Home( { articles } ) {
   return (
     <div>
-      Vercel Test
+      Vercel Test with getServerSideProps
       <ArticleList articles={articles} />
     </div>
   )
 }
 
 // getStaticProps = NextJS function: (Static Generation): Fetch data at build time.
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
   //console.log( { server } )
 
