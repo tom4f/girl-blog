@@ -73,3 +73,26 @@ INSERT INTO `blog` ( `id` , `title` , `body` , `image` , `date` )
 VALUES (
 '', 'TIPY NA VÁNOČNÍ DÁRKY 🖤 SADY, PARFÉMY & BEAUTY TOOLS', 'Všimli jste si, jak pěkně vypadá číslo letošního roku ve všech názvech? 🙂 A co třeba takový WISHLIST 2020? Plním jedno z vašich přání a dnes si dáme článek na téma, po čem mé kosmetické srdce touží, aka co bych si během letošního roku chtěla pořídit hezkého. 🙂 Ze zvědavosti jsem nakoukla do toho z minulého roku (tady) a musím říct, že jsem si víceméně všechno splnila, nebo tedy minimálně ty hlavní body z mého programu… 🙂 Musím se vám také svěřit, že psaní wishlistu je od roku těžší. Díky tomu že spoustu kosmetiky dostávám, a co si budeme povídat, také si stále velké množství kosmetiky kupuji, objem věcí po kterých opravdu toužím a zároveň je ještě nemám se rapidně snížil. Když se mi něco líbí, vždy je tu ta výmluva, že si to můžu koupit, protože to pak budu moct zrecenzovat pro vás. A doporučit vám něco skvělého, nebo naopak upozornit na něco, co zase až tak dobré není, takže většinou s nákupem neváhám.', '/IMG_2951-2-500x500.jpg', '2021-03-06'
 );
+
+
+
+
+// vercel
+
+PS C:\privat\xampp\htdocs\87_girl-blog> npm i -g vercel
+
+added 101 packages, and audited 102 packages in 13s
+
+9 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS C:\privat\xampp\htdocs\87_girl-blog> vercel --version
+Vercel CLI 21.3.3
+21.3.3
+PS C:\privat\xampp\htdocs\87_girl-blog> vercel login
+Vercel CLI 21.3.3
+We sent an email to tom4f@seznam.cz. Please follow the steps provided inside it and make sure the security code matches Adorable Grey Seal.
+√ Email confirmed
+Congratulations! You are now logged in. In order to deploy something, run `vercel`.
+�  Connect your Git Repositories to deploy every branch push automatically (https://vercel.link/git).

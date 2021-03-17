@@ -4,6 +4,7 @@ import ArticleList from '../components/ArticleList'
 export default function Home( { articles } ) {
   return (
     <div>
+      Vercel Test
       <ArticleList articles={articles} />
     </div>
   )
