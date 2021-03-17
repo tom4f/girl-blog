@@ -1,17 +1,15 @@
 import { server } from '../../../config'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import Meta from '../../../components/Meta'
 import Image from 'next/image'
 
 const article = ({ article }) => {
   // const router = useRouter()
   // const { id } = router.query
-  console.log( article )
   const imagePath = article.image
   return (
     <>
-      <Meta title={article.title} description={article.excerpt} />
+      <Meta title={article.title} description={article.title} />
       <h1>{article.title}</h1>
       <Image
           src={ imagePath }
@@ -26,12 +24,12 @@ const article = ({ article }) => {
   )
 }
 
-
-
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
-export const getServerSideProps = async (context) => {
-  const res = await fetch(`https://www.frymburk.com/rekreace/api/pdo_read_blog.php`)
+export const getStaticProps = async (context) => {
 
+  console.log( { server } )
+
+  const res = await fetch(`${server}/api/pdo_read_blog.php`)
   const articles = await res.json()
   const article = articles.find( one => one.id == context.params.id  )
 
@@ -60,7 +58,7 @@ export const getStaticProps = async (context) => {
     },
   }
 }
-
+*/
 
 // getStaticPaths = NextJS function : (Static Generation): Specify dynamic routes to pre-render pages based on data.
 // it means not only during build time
@@ -84,7 +82,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-*/
+
 
 
 export default article
