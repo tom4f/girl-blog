@@ -7,7 +7,7 @@ const ArticleItem = ({ article }) => {
   const imagePath = article.image
 
   return (
-    <Link href={`/article/${article.id}`}>
+    <Link href={`/article/${article.title_url.toLowerCase()}`}>
   {/* or nested Link : <Link href="/article/[id]" as={`/article/${article.id}`} */}
 
       <a className={articleStyles.card}>

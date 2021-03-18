@@ -31,7 +31,7 @@ export const getServerSideProps = async (context) => {
 
   const res = await fetch(`${server}/api/pdo_read_blog.php`)
   const articles = await res.json()
-  const article = articles.find( one => one.id == context.params.id  )
+  const article = articles.find( one => one.title_url.toLowerCase() == context.params.id  )
 
   return {
     props: {
