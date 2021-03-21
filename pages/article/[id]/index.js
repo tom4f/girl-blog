@@ -6,7 +6,7 @@ import Image from 'next/image'
 const article = ({ article }) => {
   // const router = useRouter()
   // const { id } = router.query
-  const imagePath = article.image
+  const imagePath = `${server}/fotogalerie_lucka/${article.image}`
   return (
     <>
       <Meta title={article.title} description={article.title} />

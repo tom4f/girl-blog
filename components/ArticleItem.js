@@ -1,10 +1,11 @@
+import { server } from '../config'
 import Link from 'next/link'
 import articleStyles from '../styles/Article.module.css'
 import Image from 'next/image'
 
 const ArticleItem = ({ article }) => {
 
-  const imagePath = article.image
+  const imagePath = `${server}/fotogalerie_lucka/${article.image}`
 
   return (
     <Link href={`/article/${article.title_url.toLowerCase()}`}>
