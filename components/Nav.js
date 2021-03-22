@@ -7,10 +7,13 @@ const Nav = () => {
     <nav className={navStyles.nav}>
       <ul>
         <li>
-          <Link href='/'>Home</Link>
+          <Link href='/'>Start</Link>
         </li>
         <li>
-          <Link href='/about'>About</Link>
+          <Link href='/about'>O mě</Link>
+        </li>
+        <li>
+          <Link href='https://www.frymburk.com/rekreace/fotogalerie_lucka.html'>Fotogalerie</Link>
         </li>
       </ul>
     </nav>

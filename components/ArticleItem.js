@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const ArticleItem = ({ article }) => {
 
-  const imagePath = `${server}/fotogalerie_lucka/${article.image}`
+  const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
 
   return (
     <Link href={`/article/${article.title_url.toLowerCase()}`}>

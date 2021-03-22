@@ -4,13 +4,6 @@ import ArticleList from '../components/ArticleList'
 export default function Home( { articles } ) {
   return (
     <div>
-      <ul>
-        <li>Vercel Test with getServerSideProps + update package.json</li>
-        <li>2021-03-18 change url params from [id] to [text-from-title] </li>
-        <li>2021-03-21 images stored on Forpsi </li>
-      </ul>
-      
-      
       <ArticleList articles={articles} />
     </div>
   )
