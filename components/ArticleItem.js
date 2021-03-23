@@ -2,6 +2,7 @@ import { server } from '../config'
 import Link from 'next/link'
 import articleStyles from '../styles/Article.module.css'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 const ArticleItem = ({ article }) => {
 
@@ -19,7 +20,8 @@ const ArticleItem = ({ article }) => {
           width={500}
           height={500}
         />
-        <p>{article.body.slice(0, 200)}...</p>
+        <>{ parse( article.body.slice(0, 200) ) }...</>
+        <p><small>{ article.date }</small></p>
       </a>
     </Link>
   )

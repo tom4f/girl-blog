@@ -2,6 +2,7 @@ import { server } from '../../../config'
 import Link from 'next/link'
 import Meta from '../../../components/Meta'
 import Image from 'next/image'
+import parse from 'html-react-parser'
 
 const article = ({ article }) => {
   // const router = useRouter()
@@ -17,9 +18,9 @@ const article = ({ article }) => {
           width={500}
           height={500}
         />
-      <p>{article.body}</p>
+      <>{ parse( article.body ) }</>
       <br />
-      <Link href='/'>Go Back</Link>
+      <Link href='/'>Zpět</Link>
     </>
   )
 }

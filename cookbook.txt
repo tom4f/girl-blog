@@ -96,3 +96,8 @@ We sent an email to tom4f@seznam.cz. Please follow the steps provided inside it 
 √ Email confirmed
 Congratulations! You are now logged in. In order to deploy something, run `vercel`.
 �  Connect your Git Repositories to deploy every branch push automatically (https://vercel.link/git).
+
+
+
+
+npm install html-react-parser
