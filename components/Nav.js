@@ -2,10 +2,15 @@
 import Link from 'next/link'
 import navStyles from '../styles/Nav.module.css'
 
-const Nav = () => {
+const Nav = ( { loginStatus, user } ) => {
   return (
     <nav className={navStyles.nav}>
       <ul>
+        { loginStatus ? <li>
+                          Uživatel: { user }
+                        </li>
+                      : null
+        }
         <li>
           <Link href='/'>Start</Link>
         </li>

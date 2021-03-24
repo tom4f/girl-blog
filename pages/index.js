@@ -1,10 +1,10 @@
 import { server } from '../config'
 import ArticleList from '../components/ArticleList'
 
-export default function Home( { articles } ) {
+export default function Home( { articles, loginStatus } ) {
   return (
     <div>
-      <ArticleList articles={articles} />
+      <ArticleList articles={articles} loginStatus={ loginStatus } />
     </div>
   )
 }

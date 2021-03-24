@@ -4,12 +4,15 @@ import Meta from '../../../components/Meta'
 import Image from 'next/image'
 import parse from 'html-react-parser'
 
-const article = ({ article }) => {
+const article = ({ article, loginStatus }) => {
   // const router = useRouter()
   // const { id } = router.query
   const imagePath = `${server}/fotogalerie_lucka/${article.image}b.jpg`
   return (
     <>
+      {
+        loginStatus ? <i>Uprav...</i> : null
+      }
       <Meta title={article.title} description={article.title} />
       <h1>{article.title}</h1>
       <Image

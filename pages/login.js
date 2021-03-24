@@ -5,11 +5,12 @@ import React, { useState, useEffect } from 'react';
 import { AlertBox } from '../components/AlertBox';
 import { Delay }    from '../components/AlertBox';
 import Meta from '../components/Meta'
+import Router from 'next/router'
 
-const login = () => {
+const login = ( { loginStatus, setLoginStatus, user, setUser } ) => {
 
 
-    const [ loginParams, setLoginParams ]   = useState( { username: '', password: '' } );
+    const [ loginParams, setLoginParams ]   = useState( { user: '', password: '', fotoGalleryOwner: '_lucka' } );
     const [ showPassword, setShowPassword ] = useState( false );
     const [ alert, setAlert ] = useState( { header: '', text: '' } );
     // if 'alert' changed - wait 5s and clear 'alert'
@@ -18,17 +19,20 @@ const login = () => {
 
     const getData = () => {
 
-        if (!loginParams.username || !loginParams.password) {
+
+        console.log( loginParams )
+
+        if (!loginParams.user || !loginParams.password) {
             setAlert( { header: 'Uživatelské jméno / heslo', text: 'vyplňte údaje' } );
             return null
         }
 
-        if (!/^[a-zA-Z0-9\-_]{3,10}$/.test(loginParams.username)) {
+        if (!/^[a-zA-Z0-9\-_]{3,12}$/.test(loginParams.user)) {
             setAlert( { header: 'Špatné jméno', text: 'zadejte 3 až 10 znaků (0-9 a..z A..Z - _ )' } );
             return null;
         } 
 
-        if (!/^[a-zA-Z0-9.\-_]{3,10}$/.test(loginParams.password)) {
+        if (!/^[a-zA-Z0-9.\-_]{3,12}$/.test(loginParams.password)) {
             setAlert( { header: 'Špatné heslo!', text: 'zadejte 3 až 10 znaků (0-9 a..z A..Z - . _ )' } );
             return null;
         } 
@@ -36,7 +40,7 @@ const login = () => {
     
           axios
               .post(
-                  `${server}/api/pdo_read_sms.php`,
+                  `${server}/api/foto_login.php`,
                   //`https://www.frymburk.com/rekreace/api/pdo_read_sms.php`,
                   loginParams,
                   { timeout: 5000 }
@@ -44,30 +48,27 @@ const login = () => {
               .then(res => {
     
                     // allForum = JSON.parse(res.data); --> for native xhr.onload 
-                    const resp = res.data[0] || res.data;
+                    const resp = res.data
     
+                    console.log(resp);
+
                     // if error in response
-                    if (typeof resp.sms_read === 'string') {
-                        resp.sms_read === 'error' && setAlert( { header: 'Přihlášení se nepovedlo !', text: 'zkuste později...' } );
+                    if (typeof resp.webToken === 'string') {
+                        resp.webToken === 'error' && setAlert( { header: 'Přihlášení se nepovedlo !', text: 'zkuste později...' } );
                         return null
                     }
 
-
+                    console.log( typeof resp[2].webUser );
+                    console.log( typeof loginParams.user );
                     
                     // if no user data
-                    if (typeof resp.id === 'string') {
-                        console.log( typeof resp.id === 'string' );
+                    if ( resp[2].webUser === loginParams.user) {
+                        console.log(  `Uzivatel ${resp[2].webUser} je prihlasen` );
                         // convert string from mySQL to number
-                        resp.days = +resp.days;
-                        //resp.id   = +resp.id;
-                        console.log( typeof resp.id === 'string' );
-                        resp.sms  = +resp.sms;
-                        resp.todayRainLimit = +resp.todayRainLimit;
-                        resp.todayRainSent  = +resp.todayRainSent;
-                        setOrigSettings( resp );
-                        setItems( resp ); 
-                        loginStatus(true);
+                        setUser( resp[2].webUser )
+                        setLoginStatus(true);
                         console.log(resp);
+                        Router.push('/')
                         return null
                     }
                     
@@ -119,8 +120,8 @@ const login = () => {
                     <input
                         type="text"
                         placeholder="Username or Email..."
-                        onChange={ (e) => setLoginParams( current => ({ ...current,  username: e.target.value }) )     }
-                        value={loginParams.username}
+                        onChange={ (e) => setLoginParams( current => ({ ...current,  user: e.target.value, fotoGalleryOwner: '_lucka' }) )     }
+                        value={loginParams.user}
                     />
                 </section>
                 <section className={loginStyles.input_section}>
@@ -128,7 +129,7 @@ const login = () => {
                     <input
                         type={ showPassword ? "text" : "password" }
                         placeholder="Password..."
-                        onChange={ (e) => setLoginParams( current => ({ ...current,  password: e.target.value }) )     }
+                        onChange={ (e) => setLoginParams( current => ({ ...current,  password: e.target.value, fotoGalleryOwner: '_lucka' }) )     }
                         value={loginParams.password}
                         autoComplete="on"
                     />
