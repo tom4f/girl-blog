@@ -16,12 +16,19 @@ const ArticleItem = ({ article, loginStatus }) => {
          loginStatus ? <i>Uprav</i> : null
         }
         <h3>{article.title} &rarr;</h3>
-        <Image
-          src={ imagePath }
-          alt="Picture of the author"
-          width={500}
-          height={500}
-        />
+        
+        <div style={{ height: '250px', }} > 
+            <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
+                <Image
+                    src={ imagePath }
+                    alt="Picture of the author"
+                    layout="fill"
+                    objectFit="contain"
+                    quality={100}
+                  />
+            </div>
+        </div>
+        
         <>{ parse( article.body.slice(0, 200) ) }...</>
         <p><small>{ article.date }</small></p>
       </a>

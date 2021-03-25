@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Meta from '../../../components/Meta'
 import Image from 'next/image'
 import parse from 'html-react-parser'
+import Edit from '../../../components/Edit'
+import loginStyles from '../../../styles/Login.module.css'
 
 const article = ({ article, loginStatus }) => {
   // const router = useRouter()
@@ -10,17 +12,74 @@ const article = ({ article, loginStatus }) => {
   const imagePath = `${server}/fotogalerie_lucka/${article.image}b.jpg`
   return (
     <>
-      {
-        loginStatus ? <i>Uprav...</i> : null
-      }
       <Meta title={article.title} description={article.title} />
+      {
+        loginStatus ? 
+         
+      (<form>
+          <section className={loginStyles.input_section}>
+              <label>Zadejte nadpis</label>
+              <input
+                  type="text"
+                  placeholder={article.title}
+                  onChange=""
+                  value={article.title}
+              />
+          </section>
+
+          <section className={loginStyles.input_section}>
+              <label>Zadejte číslo fotky</label>
+              <input
+                  type="text"
+                  placeholder={article.image}
+                  onChange=""
+                  value={article.image}
+              />
+              <div style={{ height: '300px', width: '300px', }} > 
+                  <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
+                      <Image
+                          src={ imagePath }
+                          alt="Picture of the author"
+                          layout="fill"
+                          objectFit="contain"
+                          quality={100}
+                        />
+                  </div>
+              </div>
+              { `${server}/fotogalerie_lucka/${article.image}b.jpg` }
+          </section>
+
+
+
+          <section className={loginStyles.input_section}>
+              <label>Zadejte text</label>
+              <textarea
+                  type="text"
+                  placeholder={article.body}
+                  onChange=""
+                  value={article.body}
+                  rows="30" cols="100"
+              />
+          </section>
+
+          <>{ parse( article.body ) }</>
+          <br />
+
+      </form>) : null
+
+      }
       <h1>{article.title}</h1>
-      <Image
-          src={ imagePath }
-          alt="Picture of the author"
-          width={500}
-          height={500}
-        />
+      <div style={{ height: '300px', width: '300px', }} > 
+          <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
+              <Image
+                  src={ imagePath }
+                  alt="Picture of the author"
+                  layout="fill"
+                  objectFit="contain"
+                  quality={100}
+                />
+          </div>
+      </div>
       <>{ parse( article.body ) }</>
       <br />
       <Link href='/'>Zpět</Link>

@@ -12,13 +12,13 @@ const Layout = ({ children, loginStatus, user }) => {
       <div className={styles.container}>
         <main className={styles.main}>
           <Header />
-{/*           {children} */}
+              {/* {children} */}
 
           {
-          React.cloneElement(children, {
-            loginStatus: loginStatus,
-          })
-      }
+              React.cloneElement(children, {
+                loginStatus: loginStatus,
+              })
+          }
 
         </main>
       </div>
