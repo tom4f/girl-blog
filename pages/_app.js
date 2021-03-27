@@ -6,7 +6,7 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
 
-const [ loginStatus, setLoginStatus ] = useState( true )
+const [ loginStatus, setLoginStatus ] = useState( false )
 const [ user, setUser ] = useState( '' )
 const [ webToken, setWebToken ] = useState( 'error' )
 
