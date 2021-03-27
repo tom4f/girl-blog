@@ -6,15 +6,16 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
 
-const [ loginStatus, setLoginStatus ] = useState( false )
+const [ loginStatus, setLoginStatus ] = useState( true )
 const [ user, setUser ] = useState( '' )
+const [ webToken, setWebToken ] = useState( 'error' )
 
   return (
-    <Layout loginStatus={ loginStatus } user={ user } >
-      <Component
-          loginStatus={ loginStatus } setLoginStatus={ setLoginStatus }
-          user={ user } setUser={ setUser }
-          {...pageProps} />
+    <Layout
+        loginStatus={ loginStatus } setLoginStatus={ setLoginStatus }
+        user={ user } setUser={ setUser }
+        webToken={ webToken } setWebToken={ setWebToken }>
+      <Component {...pageProps} />
     </Layout>
   )
 }

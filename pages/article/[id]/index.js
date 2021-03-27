@@ -3,27 +3,112 @@ import Link from 'next/link'
 import Meta from '../../../components/Meta'
 import Image from 'next/image'
 import parse from 'html-react-parser'
-import Edit from '../../../components/Edit'
 import loginStyles from '../../../styles/Login.module.css'
+import { useState } from 'react'
+import axios from 'axios'
+import { AlertBox } from '../../../components/AlertBox';
+import { Delay }    from '../../../components/AlertBox';
 
-const article = ({ article, loginStatus }) => {
+const article = ({ article, loginStatus, webToken }) => {
   // const router = useRouter()
   // const { id } = router.query
-  const imagePath = `${server}/fotogalerie_lucka/${article.image}b.jpg`
+  const [ editArticle, setEditArticle ] = useState( article )
+
+  const [ alert, setAlert ] = useState( { header: '', text: '' } );
+  // if 'alert' changed - wait 5s and clear 'alert'
+  Delay( alert, setAlert );
+
+  const imagePath = `${server}/fotogalerie_lucka/${editArticle.image}b.jpg`
+
+  const sendData = () => {
+    console.log( webToken )
+
+
+    axios
+        .post(
+            `${server}/api/pdo_update_blog.php`,
+            //`https://www.frymburk.com/rekreace/api/pdo_read_sms.php`,
+            {
+              ...editArticle,
+              fotoGalleryOwner: '_lucka',
+              webToken
+            },
+            { timeout: 5000 }
+        )
+        .then(res => {
+
+              // allForum = JSON.parse(res.data); --> for native xhr.onload 
+              const resp = res.data
+    
+              // if no user data
+              if ( resp.message === 'Blog updated :-)') {
+                  // convert string from mySQL to number
+                  console.log(resp);
+                  setAlert( { header: 'OK !', text: 'změny byly uloženy', color: 'lime' } );
+                  return null
+              }
+              
+              setAlert( { header: 'Neznámá chyba !', text: 'zkuste později...' } );
+
+        })
+        .catch(err => {
+            if (err.response) {
+              // client received an error response (5xx, 4xx)
+              setAlert( { header: 'Neznámá chyba !', text: 'error response (5xx, 4xx)' } );
+              console.log(err.response);
+            } else if (err.request) {
+              // client never received a response, or request never left
+              setAlert( { header: 'Neznámá chyba !', text: 'never received a response, or request never left' } );
+              console.log(err.request);
+            } else {
+              // anything else
+              setAlert( { header: 'Neznámá chyba !', text: 'Error: anything else' } );
+              //console.log(err);
+            }
+        }); 
+
+  }
+
+
   return (
     <>
       <Meta title={article.title} description={article.title} />
       {
         loginStatus ? 
          
-      (<form>
+      ( <form onSubmit={(event) => {
+              event.preventDefault();
+              sendData();
+              //setLoginParams({ username: '', password: '' });
+          }} name="formular" encType="multipart/form-data">
+
+          <section className={loginStyles.input_section}>
+              <label>Zadejte datum</label>
+              <input
+                  type="date"
+                  placeholder={editArticle.date}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, date: e.target.value } ) ) }
+                  value={editArticle.date}
+              />
+          </section>
+
+          <section className={loginStyles.input_section} style={{ display: 'flex' }} >
+              <label>https://www.olca.cz/article/</label>
+              <input
+                  type="text"
+                  placeholder={editArticle.title_url}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, title_url: e.target.value } ) ) }
+                  value={editArticle.title_url}
+              />
+          </section>
+
           <section className={loginStyles.input_section}>
               <label>Zadejte nadpis</label>
               <input
                   type="text"
-                  placeholder={article.title}
-                  onChange=""
-                  value={article.title}
+                  placeholder={editArticle.title}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, title: e.target.value } ) ) }
+                  value={editArticle.title}
               />
           </section>
 
@@ -31,9 +116,9 @@ const article = ({ article, loginStatus }) => {
               <label>Zadejte číslo fotky</label>
               <input
                   type="text"
-                  placeholder={article.image}
-                  onChange=""
-                  value={article.image}
+                  placeholder={editArticle.image}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, image: +e.target.value } ) ) }
+                  value={editArticle.image}
               />
               <div style={{ height: '300px', width: '300px', }} > 
                   <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
@@ -46,7 +131,7 @@ const article = ({ article, loginStatus }) => {
                         />
                   </div>
               </div>
-              { `${server}/fotogalerie_lucka/${article.image}b.jpg` }
+              { imagePath }
           </section>
 
 
@@ -55,20 +140,21 @@ const article = ({ article, loginStatus }) => {
               <label>Zadejte text</label>
               <textarea
                   type="text"
-                  placeholder={article.body}
-                  onChange=""
-                  value={article.body}
+                  placeholder={editArticle.body}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, body: e.target.value } ) ) }
+                  value={editArticle.body}
                   rows="30" cols="100"
               />
           </section>
-
-          <>{ parse( article.body ) }</>
-          <br />
+          { alert.header ? <AlertBox alert={ alert } /> : null }
+          <section className={loginStyles.submit_section}>
+              <input type="submit" name="odesli" value="Odeslat" />
+          </section>
 
       </form>) : null
 
       }
-      <h1>{article.title}</h1>
+      <h1>{editArticle.title}</h1>
       <div style={{ height: '300px', width: '300px', }} > 
           <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
               <Image
@@ -80,7 +166,7 @@ const article = ({ article, loginStatus }) => {
                 />
           </div>
       </div>
-      <>{ parse( article.body ) }</>
+      <>{ parse( editArticle.body ) }</>
       <br />
       <Link href='/'>Zpět</Link>
     </>

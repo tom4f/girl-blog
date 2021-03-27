@@ -7,7 +7,7 @@ import { Delay }    from '../components/AlertBox';
 import Meta from '../components/Meta'
 import Router from 'next/router'
 
-const login = ( { loginStatus, setLoginStatus, user, setUser } ) => {
+const login = ( { loginStatus, setLoginStatus, user, setUser, setWebToken } ) => {
 
 
     const [ loginParams, setLoginParams ]   = useState( { user: '', password: '', fotoGalleryOwner: '_lucka' } );
@@ -18,9 +18,6 @@ const login = ( { loginStatus, setLoginStatus, user, setUser } ) => {
 
 
     const getData = () => {
-
-
-        console.log( loginParams )
 
         if (!loginParams.user || !loginParams.password) {
             setAlert( { header: 'Uživatelské jméno / heslo', text: 'vyplňte údaje' } );
@@ -49,29 +46,24 @@ const login = ( { loginStatus, setLoginStatus, user, setUser } ) => {
     
                     // allForum = JSON.parse(res.data); --> for native xhr.onload 
                     const resp = res.data
-    
-                    console.log(resp);
-
+                    console.log( resp[0].webToken );
                     // if error in response
-                    if (typeof resp.webToken === 'string') {
-                        resp.webToken === 'error' && setAlert( { header: 'Přihlášení se nepovedlo !', text: 'zkuste později...' } );
+
+                    if( resp[0].webToken === 'error' ) {
+                        setAlert( { header: 'Přihlášení se nepovedlo !', text: 'zkuste později...' } );
                         return null
                     }
 
-                    console.log( typeof resp[2].webUser );
-                    console.log( typeof loginParams.user );
-                    
-                    // if no user data
-                    if ( resp[2].webUser === loginParams.user) {
+                    if ( typeof resp[0].webToken === 'string' ) {
                         console.log(  `Uzivatel ${resp[2].webUser} je prihlasen` );
                         // convert string from mySQL to number
                         setUser( resp[2].webUser )
                         setLoginStatus(true);
-                        console.log(resp);
+                        setWebToken( resp[0].webToken );
+                        console.log( resp[0].webToken );
                         Router.push('/')
                         return null
-                    }
-                    
+                    }  
    
                     setAlert( { header: 'Neznámá chyba !', text: 'zkuste později...' } );
       

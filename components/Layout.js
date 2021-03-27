@@ -4,7 +4,7 @@ import Header from './Header'
 import styles from '../styles/Layout.module.css'
 import React from 'react'
 
-const Layout = ({ children, loginStatus, user }) => {
+const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken, setWebToken }) => {
   return (
     <>
       <Meta />
@@ -16,7 +16,10 @@ const Layout = ({ children, loginStatus, user }) => {
 
           {
               React.cloneElement(children, {
-                loginStatus: loginStatus,
+                loginStatus, setLoginStatus,
+                webToken, setWebToken,
+                user, setUser
+
               })
           }
 
