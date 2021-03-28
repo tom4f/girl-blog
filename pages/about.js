@@ -10,10 +10,10 @@ const about = () => {
           jsem Lucka. Jako největší koníček mám kosmetiku. Jak dekorativní tak i pečující.
           Můj vzor co se týče kosmetiky je www.elbeautyblog.com.
           Na tento blog vám budu dávat tipy rady a recenze ohledně kosmetiky.
-          <p>
+          <br/>
+          <br/>
               Hezký den přeje Lucka
           </p>
-      </p>
     </div>
   )
 }

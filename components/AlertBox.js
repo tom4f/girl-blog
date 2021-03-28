@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const AlertBox = ( { alert: { header = '', text = '', color= 'red' } } ) => {
 
-    console.log(`${header} - ${text}`);
+    //console.log(`${header} - ${text}`);
     return (
         header ? <article className="alert" style={ { color } }>
                     <header className="header">{`${header}`}</header>

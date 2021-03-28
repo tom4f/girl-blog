@@ -101,3 +101,46 @@ Congratulations! You are now logged in. In order to deploy something, run `verce
 
 
 npm install html-react-parser
+
+
+// [1] update latest version of serve next js
+
+PS C:\privat\xampp\htdocs\87_girl-blog> npx next -v
+Next.js v10.0.8
+PS C:\privat\xampp\htdocs\87_girl-blog>
+PS C:\privat\xampp\htdocs\87_girl-blog>
+PS C:\privat\xampp\htdocs\87_girl-blog>
+PS C:\privat\xampp\htdocs\87_girl-blog> npm i -g npm-check-updates
+npm WARN deprecated har-validator@5.1.5: this library is no longer supported
+npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 314 packages, and audited 315 packages in 18s
+
+29 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS C:\privat\xampp\htdocs\87_girl-blog> ncu -u
+Upgrading C:\privat\xampp\htdocs\87_girl-blog\package.json
+[====================] 5/5 100%
+
+ next       10.0.8  →  10.0.9
+ react      17.0.1  →  17.0.2
+ react-dom  17.0.1  →  17.0.2
+
+Run npm install to install new versions.
+
+PS C:\privat\xampp\htdocs\87_girl-blog> npm install
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'postcss@8.1.7',
+npm WARN EBADENGINE   required: { node: '^10 || ^12 || >=14' },
+npm WARN EBADENGINE   current: { node: 'v13.7.0', npm: '7.5.4' }
+npm WARN EBADENGINE }
+
+changed 9 packages, and audited 250 packages in 8s
+
+21 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS C:\privat\xampp\htdocs\87_girl-blog>
