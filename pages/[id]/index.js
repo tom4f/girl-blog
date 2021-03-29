@@ -1,3 +1,5 @@
+// https://gingervitis.net/posts/wrangling-with-the-new-nextjs-image
+
 import { useState } from 'react'
 import Link  from 'next/link'
 import Image from 'next/image'
