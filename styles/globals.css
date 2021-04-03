@@ -14,3 +14,27 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+
+.next-img-wrapper {
+  position: relative;
+  min-width: 200px;
+  max-width: 100%;
+  text-align: center;
+  margin: auto;
+}
+.next-img-wrapper img {
+  width: 100% !important;
+  height: auto !important;
+  min-width: unset !important;
+  min-height: unset !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+.next-img-wrapper > div {
+position: relative !important;
+}
+.next-img-wrapper > div > img {
+position: relative !important;
+}

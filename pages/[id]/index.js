@@ -1,20 +1,47 @@
 // https://gingervitis.net/posts/wrangling-with-the-new-nextjs-image
-
+// https://www.theviewport.io/post/using-nextjs-and-nextimage-with-mdx-markdown-processing
 import { useState } from 'react'
 import Link  from 'next/link'
-import Image from 'next/image'
-import parse from 'html-react-parser'
 
 import { server } from '../../config'
 import Meta     from '../../components/Meta'
 import EditBlog from '../../components/EditBlog' 
+import NextImage from '../../components/NextImage'
 
-const article = ( { article, loginStatus, webToken }) => {
+// npm install react-markdown
+import ReactMarkDown from 'react-markdown/with-html';
+// npm install --save remark-shortcodes
+
+
+const article = ( { article, image: imageFromDB, images, loginStatus, webToken }) => {
   // const router = useRouter()
   // const { id } = router.query
   const [ editArticle, setEditArticle ] = useState( article )
+  
+  // get image path from image number
+  const imagePath = imageNumber => `${server}/fotogalerie_lucka/${imageNumber}b.jpg`
+  // 
+  const imageParamsFromDB = image => images.find( img => img.id === image.src.slice(1) )
 
-  const imagePath = `${server}/fotogalerie_lucka/${editArticle.image}b.jpg`
+  const renderers = {
+
+    paragraph: props =>
+    {
+        console.log( props.children[0].type.name )
+        return props.children[0].type.name === "image"
+            ? <div style={{ width: '100%' }} {...props} />
+            : <p {...props} />
+    },
+      
+    image: markDownImage => 
+        <NextImage
+            src={ imagePath( markDownImage.src.slice( 1 ) ) }
+            imageParams={ imageParamsFromDB( markDownImage ) }
+            maxWidth={ '800px' } />
+
+  }
+
+
 
   return (
     <>
@@ -27,19 +54,20 @@ const article = ( { article, loginStatus, webToken }) => {
                   setEditArticle = { setEditArticle } />
             : null
       }
-      <h1>{editArticle.title}</h1>
-      <div style={{ height: '300px', width: '300px', }} > 
-          <div style={{ position: 'relative', maxWidth: '100%', height: '100%' }}  >
-              <Image
-                  src={ imagePath }
-                  alt="Picture of the author"
-                  layout="fill"
-                  objectFit="contain"
-                  quality={100}
-                />
-          </div>
-      </div>
-      <>{ parse( editArticle.body ) }</>
+
+      <small>{ editArticle.date } <b>&rarr;{ editArticle.category }</b></small>
+      <h3>{editArticle.title}</h3>
+      <div>{editArticle.intro}</div>
+      <br/>
+      <NextImage src={ imagePath( editArticle.image ) } imageParams={ imageFromDB } maxWidth={ '800px' } />
+
+
+      <ReactMarkDown
+        escapeHtml={false}
+        source={editArticle.body}
+        renderers={renderers}
+      />
+
       <br />
       <Link href='/'>Zpět</Link>
     </>
@@ -53,9 +81,31 @@ export const getServerSideProps = async (context) => {
   const articles = await res.json()
   const article = articles.find( one => one.title_url.toLowerCase() === context.params.id  )
 
+  // get image data
+  const resImages = await fetch(
+    `${server}/api/pdo_read.php`,
+    {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          {
+            fotoGalleryOwner: "_lucka",
+            searchCriteria: "WHERE typ < 10"
+          }
+        )
+    }
+)
+const images = await resImages.json()
+const image = images.find( img => img.id === article.image )
+
   return {
     props: {
       article,
+      image,
+      images
     },
   }
 }

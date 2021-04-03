@@ -92,12 +92,32 @@ const EditBlog = ( { webToken, editArticle, setEditArticle } ) => {
           </section>
 
           <section className={loginStyles.input_section}>
+              <label>Zadejte kategorii</label>
+              <input
+                  type="text"
+                  placeholder={editArticle.category}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, category: e.target.value } ) ) }
+                  value={editArticle.category}
+              />
+          </section>
+
+          <section className={loginStyles.input_section}>
               <label>Zadejte nadpis</label>
               <input
                   type="text"
                   placeholder={editArticle.title}
                   onChange={ e => setEditArticle( prev => ( { ...prev, title: e.target.value } ) ) }
                   value={editArticle.title}
+              />
+          </section>
+
+          <section className={loginStyles.input_section}>
+              <label>Zadejte úvod</label>
+              <input
+                  type="text"
+                  placeholder={editArticle.intro}
+                  onChange={ e => setEditArticle( prev => ( { ...prev, intro: e.target.value } ) ) }
+                  value={editArticle.intro}
               />
           </section>
 

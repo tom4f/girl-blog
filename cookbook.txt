@@ -144,3 +144,8 @@ changed 9 packages, and audited 250 packages in 8s
 
 found 0 vulnerabilities
 PS C:\privat\xampp\htdocs\87_girl-blog>
+
+
+npm install react-markdown
+npm install --save @types/react
+npm install --save remark-shortcodes
