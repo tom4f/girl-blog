@@ -147,5 +147,9 @@ PS C:\privat\xampp\htdocs\87_girl-blog>
 
 
 npm install react-markdown
-npm install --save @types/react
-npm install --save remark-shortcodes
+//npm install --save @types/react
+//npm install --save remark-shortcodes
+
+
+
+& "C:\Program Files\Git\bin\sh.exe" --login

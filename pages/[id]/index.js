@@ -5,7 +5,7 @@ import Link  from 'next/link'
 
 import { server } from '../../config'
 import Meta     from '../../components/Meta'
-import EditBlog from '../../components/EditBlog' 
+import EditOrCreateApi from '../../components/EditOrCreateApi' 
 import NextImage from '../../components/NextImage'
 
 // npm install react-markdown
@@ -50,14 +50,13 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
 
   }
 
-
-
   return (
     <>
       <Meta title={article.title} description={article.title} />
       {
         loginStatus
-            ? <EditBlog
+            ? <EditOrCreateApi
+                  apiFile = 'pdo_update_blog.php'
                   webToken = { webToken }
                   editArticle = { editArticle }
                   setEditArticle = { setEditArticle } />

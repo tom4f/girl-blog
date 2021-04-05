@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { server } from '../config'
 import ArticleList from '../components/ArticleList'
 
+import Link from 'next/link'
+
 export default function Home( { articles, images, loginStatus } ) {
 
    const router = useRouter();
@@ -12,6 +14,18 @@ export default function Home( { articles, images, loginStatus } ) {
 
   return (
     <div>
+      { loginStatus
+          ? <div style={{
+              textAlign: 'center',
+              background: 'green'
+            }}>
+              <Link href="/create">
+                <a>
+                    + nový článek
+                </a>
+              </Link>
+            </div>
+          : null }
       <ArticleList articles={articles} images={images} loginStatus={ loginStatus } />
     </div>
   )
