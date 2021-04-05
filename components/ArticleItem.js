@@ -6,7 +6,7 @@ import NextImage from './NextImage'
 
 const ArticleItem = ({ article, images, loginStatus }) => {
 
-  const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
+  const imagePath = `${server}/fotogalerie_lucka/${article.image}b.jpg`
   // get image text
   const imageParamsFromDB = images.find( img => img.id === article.image )
 

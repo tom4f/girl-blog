@@ -12,8 +12,17 @@ import NextImage from '../../components/NextImage'
 import ReactMarkDown from 'react-markdown/with-html';
 // npm install --save remark-shortcodes
 
+import { useRouter } from 'next/router';
 
 const article = ( { article, image: imageFromDB, images, loginStatus, webToken }) => {
+
+  const router = useRouter();
+  console.log( 'router.isFallback= ' + router.isFallback )
+  if ( router.isFallback ) {
+   return <div>Loading...</div>;
+ }
+
+
   // const router = useRouter()
   // const { id } = router.query
   const [ editArticle, setEditArticle ] = useState( article )
@@ -27,7 +36,7 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
 
     paragraph: props =>
     {
-        console.log( props.children[0].type.name )
+        //console.log( props.children[0].type.name )
         return props.children[0].type.name === "image"
             ? <div style={{ width: '100%' }} {...props} />
             : <p {...props} />
@@ -74,8 +83,9 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
   )
 }
 
+
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
 
   const res = await fetch( `${server}/api/pdo_read_blog.php` )
   const articles = await res.json()
@@ -104,9 +114,26 @@ const image = images.find( img => img.id === article.image )
   return {
     props: {
       article,
+      articles,
       image,
       images
     },
+    revalidate: 10,
+  }
+}
+
+
+// This function gets called at build time
+export const getStaticPaths = async ( ) => {
+
+  const res = await fetch( `${server}/api/pdo_read_blog.php` )
+  const articles = await res.json()
+  const paths = articles.map( article => ({ params: { id: article.title_url.toLowerCase() } }) )
+
+  return {
+    paths,
+    // to show 404 This page could not be found.
+    fallback: true,
   }
 }
 
