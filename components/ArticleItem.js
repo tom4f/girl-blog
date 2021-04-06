@@ -6,7 +6,7 @@ import NextImage from './NextImage'
 
 const ArticleItem = ({ article, images, loginStatus }) => {
 
-  const imagePath = `${server}/fotogalerie_lucka/${article.image}b.jpg`
+  const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
   // get image text
   const imageParamsFromDB = images.find( img => img.id === article.image )
 
@@ -14,12 +14,16 @@ const ArticleItem = ({ article, images, loginStatus }) => {
       <Link href={`/${article.title_url.toLowerCase()}`}>
           {/* or nested Link : <Link href="/article/[id]" as={`/article/${article.id}`} */}
           <a className={articleStyles.card}>
-              { loginStatus ? <i>Uprav</i> : null }
-              <small>{ article.date } <b>&rarr;{ article.category }</b></small>
-              <h3>{article.title}</h3>
-              <div>{article.intro}</div>
-              <br/>
-              <NextImage src={ imagePath } imageParams={ imageParamsFromDB } />
+                <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px'/>
+                <div>
+                    { loginStatus ? <i>Uprav</i> : null }
+                    <small>{ article.date } <b>&rarr;{ article.category }</b></small>
+                    <h3>{article.title}</h3>
+                    <div>{article.intro}</div>
+                    <br/>
+                </div>
+
+
           </a>
       </Link>
   )

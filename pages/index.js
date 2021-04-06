@@ -14,18 +14,15 @@ export default function Home( { articles, images, loginStatus } ) {
 
   return (
     <div>
-      { loginStatus
-          ? <div style={{
-              textAlign: 'center',
-              background: 'green'
-            }}>
+      {
+       loginStatus
+          ? <div style={{ textAlign: 'center', background: 'green' }}>
               <Link href="/create">
-                <a>
-                    + nový článek
-                </a>
+                <a>+ nový článek</a>
               </Link>
             </div>
-          : null }
+          : null
+      }
       <ArticleList articles={articles} images={images} loginStatus={ loginStatus } />
     </div>
   )

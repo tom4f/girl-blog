@@ -72,26 +72,19 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
     
       }
 
+      const missingStyle = ( input ) => ( { background: `${ input ? 'green' : 'red' }` } )
 
   return (
     <>
-        {
-         editArticle.id
-            ? <section style={{ background: 'red' }}>
-                <button onClick={ () => sendData(deleteApiPath, axiosDeleteData) } >Smazat článek</button>
-              </section>
-            : null
-        }
-
             <form onSubmit={(event) => {
                     event.preventDefault();
-                    sendData(editApiPath, axiosData);
+                    editArticle.title_url ? sendData(editApiPath, axiosData) : null
                     //setLoginParams({ username: '', password: '' });
                 }} name="formular" encType="multipart/form-data">
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte datum</label>
-                    <input
+                    <input style={ missingStyle( editArticle.date ) }
                         type="date"
                         placeholder={editArticle.date}
                         onChange={ e => setEditArticle( prev => ( { ...prev, date: e.target.value } ) ) }
@@ -101,7 +94,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section} style={{ display: 'flex' }} >
                     <label>https://olca.cz/</label>
-                    <input
+                    <input style={ missingStyle( editArticle.title_url ) }
                         type="text"
                         placeholder={editArticle.title_url}
                         onChange={ e => setEditArticle( prev => ( { ...prev, title_url: e.target.value } ) ) }
@@ -111,7 +104,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte kategorii</label>
-                    <input
+                    <input style={ missingStyle( editArticle.category ) }
                         type="text"
                         placeholder={editArticle.category}
                         onChange={ e => setEditArticle( prev => ( { ...prev, category: e.target.value } ) ) }
@@ -121,7 +114,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte nadpis</label>
-                    <input
+                    <input style={ missingStyle( editArticle.title ) }
                         type="text"
                         placeholder={editArticle.title}
                         onChange={ e => setEditArticle( prev => ( { ...prev, title: e.target.value } ) ) }
@@ -131,7 +124,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte úvod</label>
-                    <input
+                    <input style={ missingStyle( editArticle.intro ) }
                         type="text"
                         placeholder={editArticle.intro}
                         onChange={ e => setEditArticle( prev => ( { ...prev, intro: e.target.value } ) ) }
@@ -141,10 +134,10 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte číslo fotky</label>
-                    <input
+                    <input style={ missingStyle( editArticle.image ) }
                         type="text"
                         placeholder={editArticle.image}
-                        onChange={ e => setEditArticle( prev => ( { ...prev, image: +e.target.value } ) ) }
+                        onChange={ e => setEditArticle( prev => ( { ...prev, image: e.target.value } ) ) }
                         value={editArticle.image}
                     />
                     
@@ -153,21 +146,14 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                             ? <>
                                 { imagePath }
                                 <NextImage src={ imagePath } />
-                            </>
-                            
+                              </>                           
                             : <>zadejte číslo hlavní fotky</>
                     }
-
-
-
-
                 </section>
-
-
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte text</label>
-                    <textarea
+                    <textarea style={ missingStyle( editArticle.body ) }
                         type="text"
                         placeholder={editArticle.body}
                         onChange={ e => setEditArticle( prev => ( { ...prev, body: e.target.value } ) ) }
@@ -179,10 +165,14 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                 <section className={loginStyles.submit_section}>
                     <input type="submit" name="odesli" value="Odeslat" />
                 </section>
-
-
-
             </form>
+            {
+         editArticle.id
+            ? <section style={{ background: 'red' }}>
+                <button onClick={ () => sendData(deleteApiPath, axiosDeleteData) } >Smazat článek</button>
+              </section>
+            : null
+        }
       </>
   )
 }
