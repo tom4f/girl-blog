@@ -1,7 +1,7 @@
 import loginStyles from '../styles/Login.module.css'
 import { server } from '../config'
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AlertBox } from '../components/AlertBox';
 import { Delay }    from '../components/AlertBox';
 import Meta from '../components/Meta'

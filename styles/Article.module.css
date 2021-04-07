@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 1200px;
 
   margin-top: 1rem;
+  border-style: dotted;
 }
 
 .card {

@@ -6,27 +6,26 @@ import NextImage from './NextImage'
 
 const ArticleItem = ({ article, images, loginStatus }) => {
 
-  const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
-  // get image text
-  const imageParamsFromDB = images.find( img => img.id === article.image )
+    const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
+    // get image text
+    const imageParamsFromDB = images.find( img => img.id === article.image )
 
-  return (
-      <Link href={`/${article.title_url.toLowerCase()}`}>
-          {/* or nested Link : <Link href="/article/[id]" as={`/article/${article.id}`} */}
-          <a className={articleStyles.card}>
-                <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px'/>
-                <div>
-                    { loginStatus ? <i>Uprav</i> : null }
-                    <small>{ article.date } <b>&rarr;{ article.category }</b></small>
-                    <h3>{article.title}</h3>
-                    <div>{article.intro}</div>
-                    <br/>
-                </div>
+    return (
+    <Link href={`/${article.title_url.toLowerCase()}`}>
+        {/* or nested Link : <Link href="/article/[id]" as={`/article/${article.id}`} */}
+        <a className={articleStyles.card}>
+            <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px' text={false} />
+            <div>
+                { loginStatus ? <i>Uprav</i> : null }
+                <h3>{article.title}</h3>
+                <b>{ article.category }</b> <small>{ article.date } </small>
 
-
-          </a>
-      </Link>
-  )
+                <div>{article.intro}</div>
+                <br/>
+            </div>
+        </a>
+    </Link>
+    )
 }
 
 export default ArticleItem

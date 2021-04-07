@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-const NextImage = ( { src, imageParams = { text: '' },  width = '100%', maxWidth = '100%'  } ) => {
+const NextImage = ( { src, imageParams = { text: '' },  width = '100%', maxWidth = '100%', text = true  } ) => {
     //console.log( imageParams )
     return (
         <>
@@ -12,7 +12,7 @@ const NextImage = ( { src, imageParams = { text: '' },  width = '100%', maxWidth
                     objectFit="contain"
                     quality={100}
                 />
-                <div style={{ textAlign: 'center' }}>{ imageParams.text }</div>
+                { text ? <div style={{ textAlign: 'center' }}>{ imageParams.text }</div> : null }
             </div>
 
         </>

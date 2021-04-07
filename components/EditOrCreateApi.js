@@ -1,8 +1,9 @@
 // Link similar like React Router Dom
 import { useState } from 'react'
+import Router from 'next/router'
 import axios from 'axios'
-import NextImage from './NextImage'
 
+import NextImage from './NextImage'
 import { server } from '../config'
 import loginStyles from '../styles/Login.module.css'
 import { AlertBox } from './AlertBox';
@@ -48,6 +49,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                   if ( resp.message === 'Blog updated :-)') {
                       // convert string from mySQL to number
                       setAlert( { header: 'OK !', text: 'změny byly uloženy', color: 'lime' } );
+                      Router.push('/')
                       return null
                   }
                   

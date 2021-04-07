@@ -1,8 +1,9 @@
 // wraps all pages components
 // To override the default App, create the file ./pages/_app.js as shown below:
 import { useState } from 'react'
-import Layout from '../components/Layout'
 import '../styles/globals.css'
+import Layout from '../components/Layout'
+
 
 function MyApp({ Component, pageProps }) {
 

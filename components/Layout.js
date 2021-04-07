@@ -12,8 +12,7 @@ const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken
       <div className={styles.container}>
         <main className={styles.main}>
           <Header />
-              {/* {children} */}
-
+          {/* {children} */}
           {
               React.cloneElement(children, {
                 loginStatus, setLoginStatus,

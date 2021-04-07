@@ -16,6 +16,8 @@ import { useRouter } from 'next/router';
 
 const article = ( { article, image: imageFromDB, images, loginStatus, webToken }) => {
 
+
+
   const router = useRouter();
   console.log( 'router.isFallback= ' + router.isFallback )
   if ( router.isFallback ) {
@@ -31,6 +33,7 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
   const imagePath = imageNumber => `${server}/fotogalerie_lucka/${imageNumber}b.jpg`
   // 
   const imageParamsFromDB = image => images.find( img => img.id === image.src.slice(1) )
+  console.log( imageFromDB )
 
   const renderers = {
 
@@ -68,7 +71,6 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
       <div>{editArticle.intro}</div>
       <br/>
       <NextImage src={ imagePath( editArticle.image ) } imageParams={ imageFromDB } maxWidth={ '800px' } />
-
 
       <ReactMarkDown
         escapeHtml={false}
