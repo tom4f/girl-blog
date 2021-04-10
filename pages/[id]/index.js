@@ -1,29 +1,27 @@
 // https://gingervitis.net/posts/wrangling-with-the-new-nextjs-image
 // https://www.theviewport.io/post/using-nextjs-and-nextimage-with-mdx-markdown-processing
-import { useState } from 'react'
-import Link  from 'next/link'
+import { useState }  from 'react'
+import { useRouter } from 'next/router';
+import Link          from 'next/link'
 
-import { server } from '../../config'
-import Meta     from '../../components/Meta'
+import { server }      from '../../config'
+import Meta            from '../../components/Meta'
 import EditOrCreateApi from '../../components/EditOrCreateApi' 
-import NextImage from '../../components/NextImage'
+import NextImage       from '../../components/NextImage'
 
 // npm install react-markdown
-import ReactMarkDown from 'react-markdown/with-html';
-// npm install --save remark-shortcodes
-
-import { useRouter } from 'next/router';
-
-const article = ( { article, image: imageFromDB, images, loginStatus, webToken }) => {
+import ReactMarkDown from 'react-markdown';
 
 
-
+const article = ( { article = {}, images = [], loginStatus, webToken }) => {
+  
+  // why before router article&images are not defined?
+  // without router default values must be defined? article = {}, images = []
   const router = useRouter();
   console.log( 'router.isFallback= ' + router.isFallback )
   if ( router.isFallback ) {
    return <div>Loading...</div>;
  }
-
 
   // const router = useRouter()
   // const { id } = router.query
@@ -32,8 +30,8 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
   // get image path from image number
   const imagePath = imageNumber => `${server}/fotogalerie_lucka/${imageNumber}b.jpg`
   // 
+  const imageFromDB       =          images.find( img => img.id === editArticle.image )
   const imageParamsFromDB = image => images.find( img => img.id === image.src.slice(1) )
-  console.log( imageFromDB )
 
   const renderers = {
 
@@ -55,7 +53,7 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
 
   return (
     <>
-      <Meta title={article.title} description={article.title} />
+      <Meta title={editArticle.title} description={editArticle.title} />
       {
         loginStatus
             ? <EditOrCreateApi
@@ -73,7 +71,6 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
       <NextImage src={ imagePath( editArticle.image ) } imageParams={ imageFromDB } maxWidth={ '800px' } />
 
       <ReactMarkDown
-        escapeHtml={false}
         source={editArticle.body}
         renderers={renderers}
       />
@@ -88,36 +85,36 @@ const article = ( { article, image: imageFromDB, images, loginStatus, webToken }
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
 export const getStaticProps = async (context) => {
 
-  const res = await fetch( `${server}/api/pdo_read_blog.php` )
-  const articles = await res.json()
-  const article = articles.find( one => one.title_url.toLowerCase() === context.params.id  )
 
-  // get image data
-  const resImages = await fetch(
-    `${server}/api/pdo_read.php`,
-    {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-          {
-            fotoGalleryOwner: "_lucka",
-            searchCriteria: "WHERE typ < 10"
-          }
-        )
-    }
-)
-const images = await resImages.json()
-const image = images.find( img => img.id === article.image )
+  const urlList = [
+    `/api/pdo_read_blog.php?title_url=${context.params.id}`,
+    '/api/pdo_read_foto_lucka.php'
+  ]
+
+  const fetchList = urlList.map( url => 
+      fetch( `${server}${url}` )
+        .then( response => response.json() )
+  )
+  
+  const [ articles, images ] = await Promise.all( fetchList )
+      .catch( () => [
+          [{
+              id: '99999',
+              title: 'Chyba :-)',
+              title_url: 'error',
+              intro: '',
+              body: ``,      
+              category: 'Error',
+              image: '5',
+              date: `${new Date()}`
+          }],
+          []
+      ])
 
   return {
     props: {
-      article,
-      articles,
-      image,
-      images
+      article: articles[0],
+      images: images
     },
     revalidate: 10,
   }
