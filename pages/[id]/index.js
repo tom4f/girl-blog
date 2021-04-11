@@ -15,7 +15,7 @@ import ReactMarkDown from 'react-markdown';
 
 const article = ( { article = {}, images = [], loginStatus, webToken }) => {
   
-  // why before router article&images are not defined?
+  // why before router cmd - article&images are not defined?
   // without router default values must be defined? article = {}, images = []
   const router = useRouter();
   console.log( 'router.isFallback= ' + router.isFallback )
@@ -47,6 +47,7 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
         <NextImage
             src={ imagePath( markDownImage.src.slice( 1 ) ) }
             imageParams={ imageParamsFromDB( markDownImage ) }
+            width={ '80%' }
             maxWidth={ '800px' } />
 
   }
@@ -65,10 +66,14 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
       }
 
       <small>{ editArticle.date } <b>&rarr;{ editArticle.category }</b></small>
-      <h3>{editArticle.title}</h3>
+      <h1>{editArticle.title}</h1>
       <div>{editArticle.intro}</div>
       <br/>
-      <NextImage src={ imagePath( editArticle.image ) } imageParams={ imageFromDB } maxWidth={ '800px' } />
+      <NextImage
+          src={ imagePath( editArticle.image ) }
+          imageParams={ imageFromDB }
+          width={ '80%' }
+          maxWidth={ '800px' } />
 
       <ReactMarkDown
         source={editArticle.body}

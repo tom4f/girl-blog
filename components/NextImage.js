@@ -12,7 +12,7 @@ const NextImage = ( { src, imageParams = { text: '' },  width = '100%', maxWidth
                     objectFit="contain"
                     quality={100}
                 />
-                { text ? <div style={{ textAlign: 'center' }}>{ imageParams.text }</div> : null }
+                { text ? <div style={{ textAlign: 'center' }}><small><i>{ imageParams.text }</i></small></div> : null }
             </div>
 
         </>
