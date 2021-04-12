@@ -14,14 +14,14 @@ const ArticleItem = ({ article, images, loginStatus }) => {
     <Link href={`/${article.title_url.toLowerCase()}`}>
         {/* or nested Link : <Link href="/article/[id]" as={`/article/${article.id}`} */}
         <a className={articleStyles.card}>
-            <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px' text={false} />
+            <aside>
+                <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px' text={false} />
+            </aside>
             <div>
                 { loginStatus ? <i>Uprav</i> : null }
+                <small>{ article.date } </small>&nbsp;&nbsp;<i>{ article.category }</i>
                 <h3>{article.title}</h3>
-                <b>{ article.category }</b> <small>{ article.date } </small>
-
-                <div>{article.intro}</div>
-                <br/>
+                {article.intro}
             </div>
         </a>
     </Link>
