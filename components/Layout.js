@@ -9,8 +9,7 @@ const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken
     <>
       <Meta />
       <Nav loginStatus={ loginStatus } user={ user } />
-      <div className={styles.container}>
-        <main className={styles.main}>
+        <main className={styles.container}>
           <Header />
           {/* {children} */}
           {
@@ -21,9 +20,7 @@ const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken
 
               })
           }
-
         </main>
-      </div>
     </>
   )
 }

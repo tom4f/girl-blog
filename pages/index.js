@@ -12,7 +12,7 @@ export default function Home( { articles, images, loginStatus } ) {
         return <div>Loading...</div>
     } else {
         return (
-          <div>
+          <>
               {
               loginStatus
                   ? <div style={{ textAlign: 'center', background: 'green' }}>
@@ -23,7 +23,7 @@ export default function Home( { articles, images, loginStatus } ) {
                   : null
               }
               <ArticleList articles={articles} images={images} loginStatus={ loginStatus } />
-          </div>
+          </>
     )}
 
 }
