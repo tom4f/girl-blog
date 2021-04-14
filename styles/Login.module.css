@@ -1,13 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=BenchNine");
 
-
-
-
-.container_top {
-  height: 100vh;
-  position: relative;
-}
-
 .container_login,
 .container_forget-password,
 .container_new-user,
@@ -15,7 +7,6 @@
 .container_about {
   display: flex;
   flex-direction: column;
-  position: absolute;
   justify-content: center;
   align-items: center;
   width: 90%;
@@ -25,8 +16,6 @@
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   margin: 0 auto;
-  left: 50%;
-  transform: translateX(-50%);
   padding-top: 1rem;
   padding-bottom: 1rem;
 }

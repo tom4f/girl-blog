@@ -1,6 +1,7 @@
 import Nav from './Nav'
 import Meta from './Meta'
 import Header from './Header'
+import Footer from './Footer'
 import styles from '../styles/Layout.module.css'
 import React from 'react'
 
@@ -21,6 +22,7 @@ const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken
               })
           }
         </main>
+        <Footer />
     </>
   )
 }

@@ -7,7 +7,7 @@ import { Delay }    from '../components/AlertBox';
 import Meta from '../components/Meta'
 import Router from 'next/router'
 
-const login = ( { loginStatus, setLoginStatus, user, setUser, setWebToken } ) => {
+const login = ( { setLoginStatus, setUser, setWebToken } ) => {
 
 
     const [ loginParams, setLoginParams ]   = useState( { user: '', password: '', fotoGalleryOwner: '_lucka' } );
@@ -87,18 +87,9 @@ const login = ( { loginStatus, setLoginStatus, user, setUser, setWebToken } ) =>
 
 
 
-
-
-
-
-
-
-
   return (
     <div>
       <Meta title='Login' />
-      
-
       <article className={loginStyles.container_login}>
             <header className={loginStyles.header_label}>Přihlášení uživatele</header>
             <form onSubmit={(event) => {

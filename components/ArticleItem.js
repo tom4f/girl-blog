@@ -18,7 +18,7 @@ const ArticleItem = ({ article, images, loginStatus }) => {
                 <NextImage src={ imagePath } imageParams={ imageParamsFromDB }  width='200px' text={false} />
             </aside>
             <div>
-                { loginStatus ? <i>Uprav</i> : null }
+                { loginStatus ? <span style={{ color: 'green' }}>Uprav :-)&nbsp;</span> : null }
                 <small>{ article.date } </small>&nbsp;&nbsp;<i>{ article.category }</i>
                 <h3>{article.title}</h3>
                 {article.intro}

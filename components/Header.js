@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div>
       <p className={headerStyles.description}>
-      Vše o kosmetice a vaření :-)
+        Blog o kosmetice a vaření :-)
       </p>
     </div>
   )
