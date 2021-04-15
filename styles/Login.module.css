@@ -76,7 +76,7 @@
   font-size: 20px;
 }
 
-.input_section input, .input_section select, .submit_section input {
+.input_section input, .input_section select, .input_section textarea, .submit_section input, .submit_section button {
   font-size: 1.0rem;
   width: 100%;
   background-color: transparent;
@@ -138,8 +138,15 @@
   border: 1px solid white;
   margin: 5px auto;
   text-align: left;
-  background-color: rgba(0, 255, 0, 0.4);
   width: 90%;
+}
+
+.submit_section input {
+  background-color: green;
+}
+
+.submit_section button {
+  background-color: red;
 }
 
 .submit_section:hover {
@@ -147,7 +154,7 @@
   border-radius: 5px;
 }
 
-.submit_section input {
+.submit_section input, .submit_section button {
   margin: 0;
   padding: 20px;
 }

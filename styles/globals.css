@@ -11,7 +11,9 @@ a {
   text-decoration: none;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -37,4 +39,9 @@ position: relative !important;
 }
 .next-img-wrapper > div > img {
 position: relative !important;
+}
+
+.blog-container {
+  display: flex;
+  flex-direction: row-reverse;
 }

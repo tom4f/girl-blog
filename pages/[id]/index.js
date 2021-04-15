@@ -52,36 +52,43 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
 
   }
 
+  const flexForEdit = loginStatus ? ({ flexBasis: '100%' }) : ({})
+
   return (
     <>
-      <Meta title={editArticle.title} description={editArticle.title} />
-      {
-        loginStatus
-            ? <EditOrCreateApi
-                  apiFile = 'pdo_update_blog.php'
-                  webToken = { webToken }
-                  editArticle = { editArticle }
-                  setEditArticle = { setEditArticle } />
-            : null
-      }
+        <Meta title={editArticle.title} description={editArticle.title} />
+        <section className="blog-container">
+            <article style={ flexForEdit }>
+                {
+                  loginStatus
+                      ? <EditOrCreateApi
+                            apiFile = 'pdo_update_blog.php'
+                            webToken = { webToken }
+                            editArticle = { editArticle }
+                            setEditArticle = { setEditArticle } />
+                      : null
+                }
+            </article>
+            <article style={ flexForEdit }>
+                <small>{ editArticle.date } <b>&rarr;{ editArticle.category }</b></small>
+                <h1>{editArticle.title}</h1>
+                <div>{editArticle.intro}</div>
+                <br/>
+                <NextImage
+                    src={ imagePath( editArticle.image ) }
+                    imageParams={ imageFromDB }
+                    width={ '80%' }
+                    maxWidth={ '800px' } />
 
-      <small>{ editArticle.date } <b>&rarr;{ editArticle.category }</b></small>
-      <h1>{editArticle.title}</h1>
-      <div>{editArticle.intro}</div>
-      <br/>
-      <NextImage
-          src={ imagePath( editArticle.image ) }
-          imageParams={ imageFromDB }
-          width={ '80%' }
-          maxWidth={ '800px' } />
+                <ReactMarkDown
+                  source={editArticle.body}
+                  renderers={renderers}
+                />
 
-      <ReactMarkDown
-        source={editArticle.body}
-        renderers={renderers}
-      />
-
-      <br />
-      <Link href='/'>Zpět</Link>
+                <br />
+                <Link href='/'>Zpět</Link>
+            </article>
+        </section>
     </>
   )
 }

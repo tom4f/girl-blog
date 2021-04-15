@@ -84,16 +84,6 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                     //setLoginParams({ username: '', password: '' });
                 }} name="formular" encType="multipart/form-data">
 
-                <section className={loginStyles.input_section}>
-                    <label>Zadejte datum</label>
-                    <input style={ missingStyle( editArticle.date ) }
-                        type="date"
-                        placeholder={editArticle.date}
-                        onChange={ e => setEditArticle( prev => ( { ...prev, date: e.target.value } ) ) }
-                        value={editArticle.date}
-                    />
-                </section>
-
                 <section className={loginStyles.input_section} style={{ display: 'flex' }} >
                     <label>https://olca.cz/</label>
                     <input style={ missingStyle( editArticle.title_url ) }
@@ -101,6 +91,16 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                         placeholder={editArticle.title_url}
                         onChange={ e => setEditArticle( prev => ( { ...prev, title_url: e.target.value } ) ) }
                         value={editArticle.title_url}
+                    />
+                </section>
+
+                <section className={loginStyles.input_section}>
+                    <label>Zadejte datum</label>
+                    <input style={ missingStyle( editArticle.date ) }
+                        type="date"
+                        placeholder={editArticle.date}
+                        onChange={ e => setEditArticle( prev => ( { ...prev, date: e.target.value } ) ) }
+                        value={editArticle.date}
                     />
                 </section>
 
@@ -126,11 +126,12 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
                 <section className={loginStyles.input_section}>
                     <label>Zadejte úvod</label>
-                    <input style={ missingStyle( editArticle.intro ) }
+                    <textarea style={ missingStyle( editArticle.intro ) }
                         type="text"
                         placeholder={editArticle.intro}
                         onChange={ e => setEditArticle( prev => ( { ...prev, intro: e.target.value } ) ) }
                         value={editArticle.intro}
+                        rows="3" cols="55" wrap="Yes"
                     />
                 </section>
 
@@ -146,7 +147,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                     {
                         editArticle.image
                             ? <>
-                                { imagePath }
+                                <small><sup>{ imagePath }</sup></small>
                                 <NextImage src={ imagePath } />
                               </>                           
                             : <>zadejte číslo hlavní fotky</>
@@ -160,17 +161,19 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                         placeholder={editArticle.body}
                         onChange={ e => setEditArticle( prev => ( { ...prev, body: e.target.value } ) ) }
                         value={editArticle.body}
-                        rows="30" cols="100"
+                        rows="40" cols="55" wrap="Yes"
                     />
                 </section>
+
                 { alert.header ? <AlertBox alert={ alert } /> : null }
+                
                 <section className={loginStyles.submit_section}>
                     <input type="submit" name="odesli" value="Odeslat" />
                 </section>
             </form>
             {
          editArticle.id
-            ? <section style={{ background: 'red' }}>
+            ? <section className={loginStyles.submit_section}>
                 <button onClick={ () => sendData(deleteApiPath, axiosDeleteData) } >Smazat článek</button>
               </section>
             : null
