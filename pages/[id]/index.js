@@ -4,7 +4,7 @@ import { useState }  from 'react'
 import { useRouter } from 'next/router';
 import Link          from 'next/link'
 
-import { server }      from '../../config'
+import { apiPath, serverPath }      from '../../config'
 import Meta            from '../../components/Meta'
 import EditOrCreateApi from '../../components/EditOrCreateApi' 
 import NextImage       from '../../components/NextImage'
@@ -28,7 +28,7 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
   const [ editArticle, setEditArticle ] = useState( article )
   
   // get image path from image number
-  const imagePath = imageNumber => `${server}/fotogalerie_lucka/${imageNumber}b.jpg`
+  const imagePath = imageNumber => `${serverPath}/fotogalerie_lucka/${imageNumber}b.jpg`
   // 
   const imageFromDB       =          images.find( img => img.id === editArticle.image )
   const imageParamsFromDB = image => images.find( img => img.id === image.src.slice(1) )
@@ -65,7 +65,8 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
                             apiFile = 'pdo_update_blog.php'
                             webToken = { webToken }
                             editArticle = { editArticle }
-                            setEditArticle = { setEditArticle } />
+                            setEditArticle = { setEditArticle }
+                            submitButtonText = "Uložit změny" />
                       : null
                 }
             </article>
@@ -96,55 +97,25 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
 
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
 export const getStaticProps = async (context) => {
-
-
-  const urlList = [
-    `/api/pdo_read_blog.php?title_url=${context.params.id}`,
-    '/api/pdo_read_foto_lucka.php'
-  ]
-
-  const fetchList = urlList.map( url => 
-      fetch( `${server}${url}` )
-        .then( response => response.json() )
-  )
-  
-  const [ articles, images ] = await Promise.all( fetchList )
-      .catch( () => [
-          [{
-              id: '99999',
-              title: 'Chyba :-)',
-              title_url: 'error',
-              intro: '',
-              body: ``,      
-              category: 'Error',
-              image: '5',
-              date: `${new Date()}`
-          }],
-          []
-      ])
-
-  return {
-    props: {
-      article: articles[0],
-      images: images
-    },
-    revalidate: 10,
-  }
+    const res = await fetch( `${apiPath}/api/articles/${context.params.id}` )
+    const articleAndImages = await res.json()
+    return {
+        props: articleAndImages,
+        revalidate: 10,
+    }
 }
 
 
 // This function gets called at build time
 export const getStaticPaths = async ( ) => {
-
-  const res = await fetch( `${server}/api/pdo_read_blog.php` )
-  const articles = await res.json()
-  const paths = articles.map( article => ({ params: { id: article.title_url.toLowerCase() } }) )
-
-  return {
-    paths,
-    // to show 404 This page could not be found.
-    fallback: true,
-  }
+    const res = await fetch( `${apiPath}/api/articles` )
+    const { articles, images } = await res.json()
+    const paths = articles.map( article => ({ params: { id: article.title_url.toLowerCase() } }) )
+    return {
+        paths,
+        // to show 404 This page could not be found.
+        fallback: true,
+    }
 }
 
 

@@ -1,4 +1,4 @@
-import { server } from '../config'
+import { serverPath } from '../config'
 import Link from 'next/link'
 import articleStyles from '../styles/Article.module.css'
 
@@ -6,7 +6,7 @@ import NextImage from './NextImage'
 
 const ArticleItem = ({ article, images, loginStatus }) => {
 
-    const imagePath = `${server}/fotogalerie_lucka/${article.image}.jpg`
+    const imagePath = `${serverPath}/fotogalerie_lucka/${article.image}.jpg`
     // get image text
     const imageParamsFromDB = images.find( img => img.id === article.image )
 

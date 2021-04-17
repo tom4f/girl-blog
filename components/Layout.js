@@ -7,10 +7,10 @@ import React from 'react'
 
 const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken, setWebToken }) => {
   return (
-    <>
+    <div className={styles.topContainer}>
       <Meta />
       <Nav loginStatus={ loginStatus } user={ user } />
-        <main className={styles.container}>
+      <main className={styles.container}>
           <Header />
           {/* {children} */}
           {
@@ -23,7 +23,7 @@ const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken
           }
         </main>
         <Footer />
-    </>
+    </div>
   )
 }
 

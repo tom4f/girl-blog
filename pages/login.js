@@ -1,5 +1,5 @@
 import loginStyles from '../styles/Login.module.css'
-import { server } from '../config'
+import { serverPath } from '../config'
 import axios from 'axios';
 import React, { useState } from 'react';
 import { AlertBox } from '../components/AlertBox';
@@ -37,7 +37,7 @@ const login = ( { setLoginStatus, setUser, setWebToken } ) => {
     
           axios
               .post(
-                  `${server}/api/foto_login.php`,
+                  `${serverPath}/api/foto_login.php`,
                   //`https://www.frymburk.com/rekreace/api/pdo_read_sms.php`,
                   loginParams,
                   { timeout: 5000 }
@@ -46,7 +46,7 @@ const login = ( { setLoginStatus, setUser, setWebToken } ) => {
     
                     // allForum = JSON.parse(res.data); --> for native xhr.onload 
                     const resp = res.data
-                    console.log( resp[0].webToken );
+                    //console.log( resp[0].webToken );
                     // if error in response
 
                     if( resp[0].webToken === 'error' ) {
@@ -55,12 +55,12 @@ const login = ( { setLoginStatus, setUser, setWebToken } ) => {
                     }
 
                     if ( typeof resp[0].webToken === 'string' ) {
-                        console.log(  `Uzivatel ${resp[2].webUser} je prihlasen` );
+                        //console.log(  `Uzivatel ${resp[2].webUser} je prihlasen` );
                         // convert string from mySQL to number
                         setUser( resp[2].webUser )
                         setLoginStatus(true);
                         setWebToken( resp[0].webToken );
-                        console.log( resp[0].webToken );
+                        //console.log( resp[0].webToken );
                         Router.push('/')
                         return null
                     }  
@@ -72,11 +72,11 @@ const login = ( { setLoginStatus, setUser, setWebToken } ) => {
                   if (err.response) {
                     // client received an error response (5xx, 4xx)
                     setAlert( { header: 'Neznámá chyba !', text: 'error response (5xx, 4xx)' } );
-                    console.log(err.response);
+                    //console.log(err.response);
                   } else if (err.request) {
                     // client never received a response, or request never left
                     setAlert( { header: 'Neznámá chyba !', text: 'never received a response, or request never left' } );
-                    console.log(err.request);
+                    //console.log(err.request);
                   } else {
                     // anything else
                     setAlert( { header: 'Neznámá chyba !', text: 'Error: anything else' } );

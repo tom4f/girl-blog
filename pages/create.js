@@ -31,7 +31,8 @@ const CreateBlog = ( { webToken, loginStatus } ) => {
                     apiFile = { apiFile }
                     webToken = { webToken }
                     editArticle = { editArticle }
-                    setEditArticle = { setEditArticle } />
+                    setEditArticle = { setEditArticle }
+                    submitButtonText = "Vytvořit nový článek" />
             : <Link href='/login'>
                 <a>Login...</a>
               </Link>

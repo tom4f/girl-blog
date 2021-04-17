@@ -1,20 +1,19 @@
 // Link similar like React Router Dom
 import { useState } from 'react'
-import Router from 'next/router'
 import axios from 'axios'
 
 import NextImage from './NextImage'
-import { server } from '../config'
+import { serverPath } from '../config'
 import loginStyles from '../styles/Login.module.css'
 import { AlertBox } from './AlertBox';
 import { Delay }    from './AlertBox';
 
 
-const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) => {
+const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, submitButtonText } ) => {
 
     // pdo_update_blog.php
-    const editApiPath = `${server}/api/${apiFile}`
-    const deleteApiPath = `${server}/api/pdo_delete_blog.php`
+    const editApiPath = `${serverPath}/api/${apiFile}`
+    const deleteApiPath = `${serverPath}/api/pdo_delete_blog.php`
     const axiosData = {
         ...editArticle,
         fotoGalleryOwner: '_lucka',
@@ -30,8 +29,6 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
 
       // if 'alert' changed - wait 5s and clear 'alert'
     Delay( alert, setAlert );
-
-    const imagePath = `${server}/fotogalerie_lucka/${editArticle.image}b.jpg`
 
     const sendData = (editApiPath, axiosData) => {   
         axios
@@ -49,7 +46,6 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                   if ( resp.message === 'Blog updated :-)') {
                       // convert string from mySQL to number
                       setAlert( { header: 'OK !', text: 'změny byly uloženy', color: 'lime' } );
-                      Router.push('/')
                       return null
                   }
                   
@@ -74,6 +70,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
     
       }
 
+      const imagePath = `${serverPath}/fotogalerie_lucka/${editArticle.image}b.jpg`
       const missingStyle = ( input ) => ( { background: `${ input ? 'green' : 'red' }` } )
 
   return (
@@ -168,7 +165,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle } ) =
                 { alert.header ? <AlertBox alert={ alert } /> : null }
                 
                 <section className={loginStyles.submit_section}>
-                    <input type="submit" name="odesli" value="Odeslat" />
+                    <input type="submit" name="odesli" value={ submitButtonText } />
                 </section>
             </form>
             {

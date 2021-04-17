@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { server }    from '../config'
+import { apiPath }    from '../config'
 import ArticleList   from '../components/ArticleList'
 
 import Link from 'next/link'
@@ -25,44 +25,15 @@ export default function Home( { articles, images, loginStatus } ) {
               <ArticleList articles={articles} images={images} loginStatus={ loginStatus } />
           </>
     )}
-
 }
 
 
 // getStaticProps = NextJS function: (Static Generation): Fetch data at build time.
 export const getStaticProps = async () => {
-
-    const urlList = [
-      '/api/pdo_read_blog.php',
-      '/api/pdo_read_foto_lucka.php'
-    ]
-
-    const fetchList = urlList.map( url => 
-        fetch( `${server}${url}` )
-          .then( response => response.json() )
-    )
-    
-    const [ articles, images ] = await Promise.all( fetchList )
-        .catch( () => [
-            [{
-                id: '99999',
-                title: 'Chyba :-)',
-                title_url: 'error',
-                intro: '',
-                body: ``,      
-                category: 'Error',
-                image: '5',
-                date: `${new Date()}`
-            }],
-            []
-        ])
-
+    const res = await fetch( `${apiPath}/api/articles` )
+    const props = await res.json()
     return {
-      props: {
-        articles,
-        images,
-      },
+      props,
       revalidate: 10,
     }
-
 }
