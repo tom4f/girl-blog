@@ -4,6 +4,10 @@ import { useState }  from 'react'
 import { useRouter } from 'next/router';
 import Link          from 'next/link'
 
+import { fetchLogic } from '../api/articles'
+
+import { fetchLogicOne } from '../api/articles/[id]'
+
 import { apiPath, serverPath }      from '../../config'
 import Meta            from '../../components/Meta'
 import EditOrCreateApi from '../../components/EditOrCreateApi' 
@@ -97,8 +101,10 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
 
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
 export const getStaticProps = async (context) => {
-    const res = await fetch( `${apiPath}/api/articles/${context.params.id}` )
-    const articleAndImages = await res.json()
+    //const res = await fetch( `${apiPath}/api/articles/${context.params.id}` )
+    //const articleAndImages = await res.json()
+
+    const articleAndImages = await fetchLogicOne( context.params.id )
     return {
         props: articleAndImages,
         revalidate: 10,
@@ -108,8 +114,11 @@ export const getStaticProps = async (context) => {
 
 // This function gets called at build time
 export const getStaticPaths = async ( ) => {
-    const res = await fetch( `${apiPath}/api/articles` )
-    const { articles, images } = await res.json()
+    // const res = await fetch( `${apiPath}/api/articles` )
+    // const { articles, images } = await res.json()
+
+    const { articles, images } = await fetchLogic()
+
     const paths = articles.map( article => ({ params: { id: article.title_url.toLowerCase() } }) )
     return {
         paths,
