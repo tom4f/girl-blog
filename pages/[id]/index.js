@@ -1,14 +1,11 @@
-// https://gingervitis.net/posts/wrangling-with-the-new-nextjs-image
-// https://www.theviewport.io/post/using-nextjs-and-nextimage-with-mdx-markdown-processing
 import { useState }  from 'react'
 import { useRouter } from 'next/router';
 import Link          from 'next/link'
 
-import { fetchLogic } from '../api/articles'
+import { fetchAllArticles } from '../api/articles'
+import { fetchOneArticle } from '../api/articles/[id]'
 
-import { fetchLogicOne } from '../api/articles/[id]'
-
-import { apiPath, serverPath }      from '../../config'
+import { serverPath }      from '../../config'
 import Meta            from '../../components/Meta'
 import EditOrCreateApi from '../../components/EditOrCreateApi' 
 import NextImage       from '../../components/NextImage'
@@ -24,7 +21,7 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
   const router = useRouter();
   console.log( 'router.isFallback= ' + router.isFallback )
   if ( router.isFallback ) {
-   return <div>Loading...</div>;
+    return <div>Loading...</div>;
  }
 
   // const router = useRouter()
@@ -100,32 +97,27 @@ const article = ( { article = {}, images = [], loginStatus, webToken }) => {
 
 
 // or NextJS function : getServerSideProps (Server-side Rendering): Fetch data on each request.
-export const getStaticProps = async (context) => {
-    //const res = await fetch( `${apiPath}/api/articles/${context.params.id}` )
-    //const articleAndImages = await res.json()
-
-    const articleAndImages = await fetchLogicOne( context.params.id )
+export const getStaticProps = async ( context ) => {
+    const articleAndImages = await fetchOneArticle( context.params.id )
     return {
         props: articleAndImages,
         revalidate: 10,
     }
 }
 
-
 // This function gets called at build time
-export const getStaticPaths = async ( ) => {
-    // const res = await fetch( `${apiPath}/api/articles` )
-    // const { articles, images } = await res.json()
-
-    const { articles, images } = await fetchLogic()
-
-    const paths = articles.map( article => ({ params: { id: article.title_url.toLowerCase() } }) )
+export const getStaticPaths = async () => {
+    const { articles } = await fetchAllArticles()
+    const paths = articles.map( article => ({
+            params: {
+                id: article.title_url.toLowerCase()
+            }}
+    ))
     return {
         paths,
         // to show 404 This page could not be found.
         fallback: true,
     }
 }
-
 
 export default article

@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router';
-import { apiPath }    from '../config'
-import ArticleList   from '../components/ArticleList'
-import { fetchLogic } from './api/articles'
-
 import Link from 'next/link'
+
+import ArticleList   from '../components/ArticleList'
+import { fetchAllArticles } from './api/articles'
 
 export default function Home( { articles, images, loginStatus } ) {
 
@@ -29,18 +28,11 @@ export default function Home( { articles, images, loginStatus } ) {
     )}
 }
 
-
 // getStaticProps = NextJS function: (Static Generation): Fetch data at build time.
-export const getStaticProps = async () => {
-    //const res = await fetch( `${apiPath}/api/articles` )
-    
-    const props = await fetchLogic()
-
-    console.log( props )
-    
-    //const props = await res.json()
+export const getStaticProps = async () => { 
+    const allArticles = await fetchAllArticles()
     return {
-      props,
-      revalidate: 10,
+        props: allArticles,
+        revalidate: 10,
     }
 }

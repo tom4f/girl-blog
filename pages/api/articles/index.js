@@ -1,6 +1,6 @@
 import { serverPath }    from '../../../config'
 
-export const fetchLogic = async () => {
+export const fetchAllArticles = async () => {
     const urlList = [
         '/api/pdo_read_blog.php',
         '/api/pdo_read_foto_lucka.php'
@@ -12,19 +12,7 @@ export const fetchLogic = async () => {
       )
       
       const [ articles, images ] = await Promise.all( fetchList )
-          .catch( () => [
-              [{
-                  id: '99999',
-                  title: 'Chyba :-)',
-                  title_url: 'error',
-                  intro: '',
-                  body: ``,      
-                  category: 'Error',
-                  image: '5',
-                  date: `${new Date()}`
-              }],
-              []
-          ])
+        .catch( () => console.log( 'Error' ))
   
       return (
           {
@@ -34,10 +22,8 @@ export const fetchLogic = async () => {
       )
 }
 
-const handler = async (req, res) => {
+export default async (req, res) => {
     // console.log( req.query.id )
-    const fetchResult = await fetchLogic()
+    const fetchResult = await fetchAllArticles()
     res.status(200).json( fetchResult )
 }
-
-export default handler

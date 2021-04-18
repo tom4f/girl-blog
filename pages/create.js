@@ -4,7 +4,6 @@ import EditOrCreateApi from '../components/EditOrCreateApi'
 
 
 const CreateBlog = ( { webToken, loginStatus } ) => {
-
     const emptyBlog = {
         date: '',
         category: '',
@@ -14,29 +13,24 @@ const CreateBlog = ( { webToken, loginStatus } ) => {
         image: '',
         body: '',
     }
-
     const [ editArticle, setEditArticle ] = useState( emptyBlog )
-
     const apiFile = 'pdo_create_blog.php'
 
-    console.log( apiFile )
-
     return (
-
         <>
-        <div>Nový článek</div>
-        {
-        loginStatus
-            ? <EditOrCreateApi
-                    apiFile = { apiFile }
-                    webToken = { webToken }
-                    editArticle = { editArticle }
-                    setEditArticle = { setEditArticle }
-                    submitButtonText = "Vytvořit nový článek" />
-            : <Link href='/login'>
-                <a>Login...</a>
-              </Link>
-        }
+            <div>Nový článek</div>
+            {
+            loginStatus
+                ? <EditOrCreateApi
+                        apiFile = { apiFile }
+                        webToken = { webToken }
+                        editArticle = { editArticle }
+                        setEditArticle = { setEditArticle }
+                        submitButtonText = "Vytvořit nový článek" />
+                : <Link href='/login'>
+                    <a>Login...</a>
+                </Link>
+            }
         </>
     )
 }

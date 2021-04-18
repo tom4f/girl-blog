@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 import NextImage from './NextImage'
-import { serverPath } from '../config'
+import { serverPath, apiPath } from '../config'
 import loginStyles from '../styles/Login.module.css'
 import { AlertBox } from './AlertBox';
 import { Delay }    from './AlertBox';
@@ -30,7 +30,24 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
       // if 'alert' changed - wait 5s and clear 'alert'
     Delay( alert, setAlert );
 
-    const sendData = (editApiPath, axiosData) => {   
+    const sendData = async (editApiPath, axiosData) => {  
+
+/*         const { title_url } = axiosData
+
+        console.log( title_url )
+
+        const resp = await fetch( `${apiPath}/api/articles/${title_url}` )
+        const respJson =  await resp.json()
+
+        console.log( respJson.article.id )
+
+
+        if ( respJson.article.id ) {
+            setAlert( { header: 'Adresa existuje', text: 'zkuste jinou...' } );
+            return null
+        } */
+        
+
         axios
             .post(
                 editApiPath,
@@ -77,7 +94,9 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
     <>
             <form onSubmit={(event) => {
                     event.preventDefault();
-                    editArticle.title_url ? sendData(editApiPath, axiosData) : null
+                    if ( editArticle.title_url ) {
+                        sendData(editApiPath, axiosData)
+                    } else null
                     //setLoginParams({ username: '', password: '' });
                 }} name="formular" encType="multipart/form-data">
 
