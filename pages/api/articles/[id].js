@@ -29,10 +29,11 @@ const handler = async ( { query: { id } } , res) => {
             []
         ])
   
-    res.status(200).json( {
+    //res.status(200).json( {
+    res.status(200).json(JSON.stringify( {
         article: articles[0],
         images,
-    } )
+    } ))
 
   }
 

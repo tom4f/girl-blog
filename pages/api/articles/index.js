@@ -27,10 +27,11 @@ const handler = async (req, res) => {
             []
         ])
 
-    res.status(200).json( {
+//  res.status(200).json( {
+    res.status(200).json(JSON.stringify( {
         articles,
         images,
-      } )
+      } ))
 
 
 }
