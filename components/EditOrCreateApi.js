@@ -32,21 +32,22 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
 
     const sendData = async (editApiPath, axiosData) => {  
 
-/*         const { title_url } = axiosData
 
-        console.log( title_url )
+        // test if new url already exists for create blog
+        if ( apiFile === 'pdo_create_blog.php' ) {
+            const { title_url } = axiosData
+            const resp = await fetch( `${apiPath}/api/articles/${title_url}` )
+                                .catch( ( err ) => console.log( err ) )
+            const respJson =  await resp.json()
+                                .catch( ( err ) => console.log( err ) )
+            // Optional chaining (?.), obj?.['prop' + 'Name'];
+            if ( !!respJson?.article?.title_url ) {
+                setAlert( { header: 'Adresa existuje', text: 'zkuste jinou...' } )
+                return null
+            }
+        }
 
-        const resp = await fetch( `${apiPath}/api/articles/${title_url}` )
-        const respJson =  await resp.json()
 
-        console.log( respJson.article.id )
-
-
-        if ( respJson.article.id ) {
-            setAlert( { header: 'Adresa existuje', text: 'zkuste jinou...' } );
-            return null
-        } */
-        
 
         axios
             .post(

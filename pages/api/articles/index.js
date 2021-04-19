@@ -12,7 +12,7 @@ export const fetchAllArticles = async () => {
       )
       
       const [ articles, images ] = await Promise.all( fetchList )
-        .catch( () => console.log( 'Error' ))
+        .catch( () => console.log( 'Error' ) )
   
       return (
           {
