@@ -9,16 +9,14 @@ import { AlertBox } from './AlertBox';
 import { Delay }    from './AlertBox';
 
 
-const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, submitButtonText } ) => {
+const EditOrCreateApi = ( { webToken, editArticle, setEditArticle, submitButtonText, mode } ) => {
 
-    // pdo_update_blog.php
-    const editApiPath = `${serverPath}/api/${apiFile}`
-    const deleteApiPath = `${serverPath}/api/pdo_delete_blog.php`
     const axiosData = {
         ...editArticle,
         fotoGalleryOwner: '_lucka',
         webToken
       }
+
     const axiosDeleteData = {
         id: editArticle.id,
         fotoGalleryOwner: '_lucka',
@@ -27,14 +25,21 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
 
     const [ alert, setAlert ] = useState( { header: '', text: '' } );
 
-      // if 'alert' changed - wait 5s and clear 'alert'
+    // if 'alert' changed - wait 5s and clear 'alert'
     Delay( alert, setAlert );
 
-    const sendData = async (editApiPath, axiosData) => {  
+    const sendData = async (mode, axiosData) => {  
 
+        //localStorage.setItem('user', JSON.stringify( { user: 'Lucka' } ));
+        const { user } = JSON.parse(localStorage.getItem('user'));
+        console.log( user )
+
+        // path for create or update php API based on mode
+        const phpApiPath = `${serverPath}/api/pdo_${mode}_blog.php`
+        console.log( phpApiPath )
 
         // test if new url already exists for create blog
-        if ( apiFile === 'pdo_create_blog.php' ) {
+        if ( mode === 'create' ) {
             const { title_url } = axiosData
             const resp = await fetch( `${apiPath}/api/articles/${title_url}` )
                                 .catch( ( err ) => console.log( err ) )
@@ -51,7 +56,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
 
         axios
             .post(
-                editApiPath,
+                phpApiPath,
                 axiosData,
                 { timeout: 5000 }
             )
@@ -96,7 +101,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
             <form onSubmit={(event) => {
                     event.preventDefault();
                     if ( editArticle.title_url ) {
-                        sendData(editApiPath, axiosData)
+                        sendData( mode , axiosData)
                     } else null
                     //setLoginParams({ username: '', password: '' });
                 }} name="formular" encType="multipart/form-data">
@@ -191,7 +196,7 @@ const EditOrCreateApi = ( { apiFile, webToken, editArticle, setEditArticle, subm
             {
          editArticle.id
             ? <section className={loginStyles.submit_section}>
-                <button onClick={ () => sendData(deleteApiPath, axiosDeleteData) } >Smazat článek</button>
+                <button onClick={ () => sendData( 'delete', axiosDeleteData) } >Smazat článek</button>
               </section>
             : null
         }

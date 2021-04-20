@@ -1,32 +1,29 @@
-import { useState } from 'react'
 import Link from 'next/link'
-import EditOrCreateApi from '../components/EditOrCreateApi'
+import ArticleItemFull from '../components/ArticleItemFull'
 
-
-const CreateBlog = ( { webToken, loginStatus } ) => {
-    const emptyBlog = {
+const createBlog = ( { webToken, loginStatus } ) => {
+    const emptyArticle = {
         date: '',
         category: '',
         title: '',
-        title_url: '',
+        title_url: 'novy-clanek-jupi',
         intro: '',
-        image: '',
+        image: '1',
         body: '',
     }
-    const [ editArticle, setEditArticle ] = useState( emptyBlog )
-    const apiFile = 'pdo_create_blog.php'
 
     return (
         <>
             <div>Nový článek</div>
             {
             loginStatus
-                ? <EditOrCreateApi
-                        apiFile = { apiFile }
-                        webToken = { webToken }
-                        editArticle = { editArticle }
-                        setEditArticle = { setEditArticle }
-                        submitButtonText = "Vytvořit nový článek" />
+                ? <ArticleItemFull
+                        mode="create"
+                        article={ emptyArticle }
+                        images={ [] }
+                        loginStatus={ loginStatus }
+                        webToken={ webToken }
+                  />
                 : <Link href='/login'>
                     <a>Login...</a>
                 </Link>
@@ -35,4 +32,4 @@ const CreateBlog = ( { webToken, loginStatus } ) => {
     )
 }
 
-export default CreateBlog
+export default createBlog
