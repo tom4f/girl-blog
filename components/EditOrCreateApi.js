@@ -30,10 +30,6 @@ const EditOrCreateApi = ( { webToken, editArticle, setEditArticle, submitButtonT
 
     const sendData = async (mode, axiosData) => {  
 
-        //localStorage.setItem('user', JSON.stringify( { user: 'Lucka' } ));
-        //const { user } = JSON.parse(localStorage.getItem('user'));
-        //console.log( user )
-
         // path for create or update php API based on mode
         const phpApiPath = `${serverPath}/api/pdo_${mode}_blog.php`
         console.log( phpApiPath )

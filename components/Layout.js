@@ -6,10 +6,11 @@ import styles from '../styles/Layout.module.css'
 import React from 'react'
 
 const Layout = ({ children, loginStatus, setLoginStatus, user, setUser, webToken, setWebToken }) => {
+  
   return (
     <div className={styles.topContainer}>
       <Meta />
-      <Nav loginStatus={ loginStatus } user={ user } />
+      <Nav loginStatus={ loginStatus } user={ user } setLoginStatus={ setLoginStatus } />
       <main className={styles.container}>
           <Header />
           {/* {children} */}

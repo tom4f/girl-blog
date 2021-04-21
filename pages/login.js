@@ -57,9 +57,24 @@ const login = ( { setLoginStatus, setUser, setWebToken } ) => {
                     if ( typeof resp[0].webToken === 'string' ) {
                         //console.log(  `Uzivatel ${resp[2].webUser} je prihlasen` );
                         // convert string from mySQL to number
-                        setUser( resp[2].webUser )
+
+                        const user = resp[2].webUser
+                        const webToken = resp[0].webToken
+                        const loginStatus = true
+                        
+                        sessionStorage.setItem('client', JSON.stringify( 
+                     // localStorage.setItem('client', JSON.stringify( 
+                            {
+                                user,
+                                webToken,
+                                loginStatus,
+                                authDate: Date()
+                            }
+                        ));
+
+                        setUser( user )
                         setLoginStatus(true);
-                        setWebToken( resp[0].webToken );
+                        setWebToken( webToken );
                         //console.log( resp[0].webToken );
                         Router.push('/')
                         return null

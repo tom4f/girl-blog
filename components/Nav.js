@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import navStyles from '../styles/Nav.module.css'
+import { serverPath } from '../config'
 
-const Nav = ( { loginStatus, user } ) => {
+const Nav = ( { loginStatus, user, setLoginStatus } ) => {
   return (
     <header  className={navStyles.nav_container}>
         <h1 className={navStyles.logo}>
@@ -10,7 +11,7 @@ const Nav = ( { loginStatus, user } ) => {
         <nav className={navStyles.nav}>
           <ul>
             { loginStatus ? <li>
-                              Uživatel: { user }
+                              { user }: <button onClick={ () => setLoginStatus( false ) } >odhlásit</button>
                             </li>
                           : null
             }
@@ -21,7 +22,7 @@ const Nav = ( { loginStatus, user } ) => {
               <Link href='/about'>O&nbsp;mě</Link>
             </li>
             <li>
-              <Link href='https://www.frymburk.com/rekreace/fotogalerie_lucka.html'>Fotogalerie</Link>
+              <Link href={ `${serverPath}/fotogalerie_lucka.html` }>Fotogalerie</Link>
             </li>
           </ul>
         </nav>

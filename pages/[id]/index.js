@@ -6,6 +6,10 @@ import ArticleItemFull from '../../components/ArticleItemFull'
 
 const article = ( { article = {}, images = [], loginStatus, webToken }) => {
   
+
+    //const localStorageUser = JSON.parse(localStorage.getItem('user'));
+    //console.log( user )
+
   // why before router cmd - article&images are not defined?
   // without router default values must be defined? article = {}, images = []
   const router = useRouter();
