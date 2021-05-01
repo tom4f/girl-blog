@@ -18,9 +18,9 @@ export default function ArticleItemFull( { article = {}, images = [], loginStatu
   const flexBoxForEdit = loginStatus ? ({ flexBasis: '100%' }) : ({})
 
   const components = {
-    p: props     => props.children[0].type.name === "image"
+    p: props     => props.children[0]?.type?.name === "img"
                               ? <div style={{ width: '100%' }} {...props} />
-                              : <p {...props} />,
+                              : <a {...props} />,
     img: markDownImage => <NextImage
                               src={ imagePath( markDownImage.src.slice( 1 ) ) }
                               imageParams={ imageParamsFromDB( markDownImage ) }
