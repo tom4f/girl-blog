@@ -1,9 +1,11 @@
 import { serverPath }    from '../../../config'
+import { blogApiScript }    from '../../../config'
+import { photoApiScript }    from '../../../config'
 
 export const fetchAllArticles = async () => {
     const urlList = [
-        '/api/pdo_read_blog.php',
-        '/api/pdo_read_foto_lucka.php'
+        `/api/${blogApiScript}`,
+        `/api/${photoApiScript}`
       ]
   
       const fetchList = urlList.map( url => 

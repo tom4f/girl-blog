@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import navStyles from '../styles/Nav.module.css'
-import { serverPath } from '../config'
+import { photoGalleryLink } from '../config'
 
-const Nav = ( { loginStatus, user, setLoginStatus } ) => {
+export default function Nav( { loginStatus, user, setLoginStatus } ) {
   return (
     <header  className={navStyles.nav_container}>
         <h1 className={navStyles.logo}>
@@ -22,12 +22,10 @@ const Nav = ( { loginStatus, user, setLoginStatus } ) => {
               <Link href='/about'>O&nbsp;mě</Link>
             </li>
             <li>
-              <Link href={ `${serverPath}/fotogalerie_lucka.html` }>Fotogalerie</Link>
+              <Link href={ photoGalleryLink }>Fotogalerie</Link>
             </li>
           </ul>
         </nav>
     </header>
   )
 }
-
-export default Nav

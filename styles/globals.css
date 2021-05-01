@@ -43,8 +43,3 @@ position: relative !important;
 .next-img-wrapper > div > img {
 position: relative !important;
 }
-
-.blog-container {
-  display: flex;
-  flex-direction: row-reverse;
-}

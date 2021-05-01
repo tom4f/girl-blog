@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 import NextImage from './NextImage'
-import { serverPath, apiPath } from '../config'
+import { serverPath, apiPath, photoFolder, blogApiScriptExt } from '../config'
 import loginStyles from '../styles/Login.module.css'
 import { AlertBox } from './AlertBox';
 import { Delay }    from './AlertBox';
@@ -24,16 +24,12 @@ const EditOrCreateApi = ( { webToken, editArticle, setEditArticle, submitButtonT
     }
 
     const [ alert, setAlert ] = useState( { header: '', text: '' } );
-
-    // if 'alert' changed - wait 5s and clear 'alert'
     Delay( alert, setAlert );
 
     const sendData = async (mode, axiosData) => {  
 
         // path for create or update php API based on mode
-        const phpApiPath = `${serverPath}/api/pdo_${mode}_blog.php`
-        console.log( phpApiPath )
-
+        const phpApiPath = `${serverPath}/api/pdo_${mode}_blog${blogApiScriptExt}.php`
         // test if new url already exists for create blog
         if ( mode === 'create' ) {
             const { title_url } = axiosData
@@ -89,7 +85,7 @@ const EditOrCreateApi = ( { webToken, editArticle, setEditArticle, submitButtonT
     
       }
 
-      const imagePath = `${serverPath}/fotogalerie_lucka/${editArticle.image}b.jpg`
+      const imagePath = `${serverPath}/${photoFolder}/${editArticle.image}b.jpg`
       const missingStyle = ( input ) => ( { background: `${ input ? 'green' : 'red' }` } )
 
   return (

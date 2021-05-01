@@ -1,11 +1,8 @@
-.topContainer {
-}
-
 .container {
   display: flex;
   flex-direction: column;
   /*  */
-  min-height: calc( 100vh - 65px - 30px - 1px );
+  min-height: calc( 100vh - 65px - 31px );
   margin: 0 auto;
 
   padding: 1rem;
@@ -21,6 +18,6 @@
 
 @media (max-width: 500px) {
   .container {
-    min-height: calc( 100vh - 65px - 65px - 30px - 1px );
+    min-height: calc( 100vh - 65px - 65px - 31px );
   }
 }
