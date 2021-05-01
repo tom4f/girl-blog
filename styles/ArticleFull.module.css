@@ -1,0 +1,12 @@
+.blogContainer {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.link {
+    margin-top: 2rem;
+}
+
+.intro {
+    margin-bottom: 2rem;
+}
